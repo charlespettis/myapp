@@ -13,14 +13,32 @@ import Groups from './screens/Groups';
 import CreateCourse from './screens/CreateCourse';
 import CreateArticle from './screens/CreateArticle';
 import CreateVideo from './screens/CreateVideo';
+import {useSelector, useDispatch} from 'react-redux';
+import Landing from './screens/Landing';
+import Register from './screens/Register';
+import Login from './screens/Login'
+import { useAuthorizeQuery } from './app/services/auth';
+import { setCredentials } from './app/reducers/authSlice';
 
 function App() {
+  const user = useSelector(state => state.auth.user);
+  const {data, error, isLoading} = useAuthorizeQuery();
+
   return (
     <BrowserRouter>
+      {
+        user ? 
         <Routes>
           <Route path="*" element={<Home />} />
           <Route path="/watch" element={<Watch />}/>
         </Routes>
+        :
+        <Routes>
+          <Route path="/" element={<Landing />}/>
+          <Route path="/register" element={<Register/>} />
+          <Route path="/login" element={<Login/>} />
+        </Routes>
+      }
     </BrowserRouter>
   );
 }
@@ -81,6 +99,7 @@ const Home = () => {
       path='/create/video'
       element={<CreateVideo/>}
       />
+      
 
     </SideNav>
   )
