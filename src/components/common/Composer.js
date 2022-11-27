@@ -4,51 +4,47 @@ import ThumbnailTool from '../ThumbnailTool';
 
 const Composer = props => {
 
+    const [value, setValue] = React.useState({
+        title:'',
+        category:null,
+        groupId:null,
+        thumbnail:''
+    })
+
     return(
-        <div style={{display:'flex',flexDirection:"column"}}>
+        <div style={{display:'flex',flexDirection:"row",justifyContent:'flex-start',overflowY:'hidden'}}>
 
-            <div style={{display:'flex',flexDirection:'row',alignItems:'center',marginBottom:50,marginTop:10}}>
+            <div style={{overflowY:'scroll',display:'flex',flexDirection:'column',flex:1,height:'100%'}}>
                 
-                <span style={{display:'flex',flexDirection:'row',alignItems:'flex-end'}}>
-                    <input placeholder='Enter a title' type='text' style={{fontSize:22,borderTop:'none',borderLeft:'none',borderRight:'none',width:400,height:30}}/>
-                    
-                    <input placeholder='Group' style={{height:30,width:200,borderLeft:'none',borderRight:'none',borderTop:'none',padding:0,marginLeft:20}} list="browsers2" name="browser2" id="browser2"/>
+                    <input onChange={e => setValue({...value, title: e.currentTarget.value})} placeholder='Enter a title' type='text' style={{fontSize:22,borderTop:'none',borderLeft:'none',borderRight:'none',width:'100%',height:30}}/>
+                    {
+                    !props.noPlacement &&
+                    <>
+                    <input onChange={e => setValue({...value, groupId: e.currentTarget.value})} placeholder='Group' style={{height:30,width:'100%',marginTop:5,borderLeft:'none',borderRight:'none',borderTop:'none',padding:0}} list="browsers2" name="browser2" id="browser2"/>
                     <datalist id="browsers2">
-                        <option value="Edge"/>
-                        <option value="Firefox"/>
-                        <option value="Chrome"/>
-                        <option value="Opera"/>
-                        <option value="Safari"/>
+                        <option label='Public' value="4a7a23ae-2ef6-41dd-a4a3-743c44e6565c"/>
                     </datalist>
+                   
 
-
-                    <input placeholder='Category' style={{height:30,width:200,borderLeft:'none',borderRight:'none',borderTop:'none',padding:0,marginLeft:20}} list="browsers" name="browser" id="browser"/>
+                    <input onChange={e => setValue({...value, category: e.currentTarget.value})} placeholder='Category' style={{height:30,width:'100%',marginTop:5,borderLeft:'none',borderRight:'none',borderTop:'none',padding:0}} list="browsers" name="browser" id="browser"/>
                     <datalist  placeholder='Category' id="browsers">
-                        <option value="Edge"/>
-                        <option value="Firefox"/>
-                        <option value="Chrome"/>
-                        <option value="Opera"/>
-                        <option value="Safari"/>
+                        <option value="Web Development"/>
                     </datalist>
+                    </>
+                    }
 
-                    <input placeholder='Sub-Category' style={{height:30,width:200,borderLeft:'none',borderRight:'none',borderTop:'none',padding:0,marginLeft:20}} list="browsers2" name="browser2" id="browser2"/>
-                    <datalist id="browsers2">
-                        <option value="Edge"/>
-                        <option value="Firefox"/>
-                        <option value="Chrome"/>
-                        <option value="Opera"/>
-                        <option value="Safari"/>
-                    </datalist>
-
-
-                <OutlineButton style={{marginLeft:20}}>Publish</OutlineButton>
-                </span>
-
+            <ThumbnailTool
+            onChange={e => setValue({...value, ...e})}
+            />
+            
+            <OutlineButton onClick={()=>props.onSubmit(value)} style={{width:'100%',marginTop:0}}>Publish</OutlineButton>
             </div>
 
+            <div style={{display:'flex',flex:3,alignSelf:'center',height:'100%',marginLeft:30,paddingLeft:30,alignItems:'flex-start', borderLeft:'1px solid rgba(0,0,0,.5)'}}>
+        
             {props.component}
 
-            <ThumbnailTool/>
+            </div>
 
         </div>
     )

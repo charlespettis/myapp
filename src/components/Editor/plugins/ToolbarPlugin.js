@@ -16,6 +16,7 @@ import {
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";
 import {
   $isParentElementRTL,
+  $wrapNodes,
   $wrapLeafNodesInElements,
   $isAtNodeEnd
 } from "@lexical/selection";
@@ -297,7 +298,7 @@ function BlockOptionsDropdownList({
         const selection = $getSelection();
 
         if ($isRangeSelection(selection)) {
-          $wrapLeafNodesInElements(selection, () => $createParagraphNode());
+          $wrapNodes(selection, () => $createParagraphNode());
         }
       });
     }
@@ -310,7 +311,7 @@ function BlockOptionsDropdownList({
         const selection = $getSelection();
 
         if ($isRangeSelection(selection)) {
-          $wrapLeafNodesInElements(selection, () => $createHeadingNode("h1"));
+          $wrapNodes(selection, () => $createHeadingNode("h1"));
         }
       });
     }
@@ -323,7 +324,7 @@ function BlockOptionsDropdownList({
         const selection = $getSelection();
 
         if ($isRangeSelection(selection)) {
-          $wrapLeafNodesInElements(selection, () => $createHeadingNode("h2"));
+          $wrapNodes(selection, () => $createHeadingNode("h2"));
         }
       });
     }
@@ -367,7 +368,7 @@ function BlockOptionsDropdownList({
         const selection = $getSelection();
 
         if ($isRangeSelection(selection)) {
-          $wrapLeafNodesInElements(selection, () => $createCodeNode());
+          $wrapNodes(selection, () => $createCodeNode());
         }
       });
     }
@@ -400,11 +401,6 @@ function BlockOptionsDropdownList({
         <span className="icon numbered-list" />
         <span className="text">Numbered List</span>
         {blockType === "ol" && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatQuote}>
-        <span className="icon quote" />
-        <span className="text">Quote</span>
-        {blockType === "quote" && <span className="active" />}
       </button>
       <button className="item" onClick={formatCode}>
         <span className="icon code" />

@@ -19,6 +19,10 @@ import Register from './screens/Register';
 import Login from './screens/Login'
 import { useAuthorizeQuery } from './app/services/auth';
 import { setCredentials } from './app/reducers/authSlice';
+import EditGroup from './screens/EditGroup';
+import Articles from './screens/Articles';
+import ViewArticle from './screens/ViewArticle';
+import ViewCourse from './screens/ViewCourse';
 
 function App() {
   const user = useSelector(state => state.auth.user);
@@ -30,13 +34,15 @@ function App() {
         user ? 
         <Routes>
           <Route path="*" element={<Home />} />
-          <Route path="/watch" element={<Watch />}/>
+          <Route path="/watch/:id" element={<Watch />}/>
         </Routes>
         :
         <Routes>
           <Route path="/" element={<Landing />}/>
           <Route path="/register" element={<Register/>} />
           <Route path="/login" element={<Login/>} />
+          <Route path="*" exact={true} element={<Login />} />
+
         </Routes>
       }
     </BrowserRouter>
@@ -55,6 +61,13 @@ const Home = () => {
       label='Videos'
       path='/'
       element={<Videos />}
+      />
+
+      <SideNav.Screen
+      icon='video'
+      label='Articles'
+      path='/articles'
+      element={<Articles />}
       />
 
       <SideNav.Screen
@@ -100,6 +113,20 @@ const Home = () => {
       element={<CreateVideo/>}
       />
       
+      <SideNav.Screen
+      path='/edit/group/:id'
+      element={<EditGroup/>}
+      />
+
+      <SideNav.Screen
+      path='/view/article/:id'
+      element={<ViewArticle/>}
+      />
+
+      <SideNav.Screen
+      path='/view/course/:id'
+      element={<ViewCourse/>}
+      />
 
     </SideNav>
   )

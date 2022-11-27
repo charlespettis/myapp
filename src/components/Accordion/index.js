@@ -11,7 +11,7 @@ const Accordion = props => {
     //example [{title:'Hello', data: [{x:1},{x:2},{x:3}]}] creates accordion with one openable block labeled Hello that has data for 3 nested list items that are rendered from component in props.renderItem with x as the item props
 
     return(
-        <div onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} style={{backgroundColor:isOpen || hover ? '#f1f1f1' : 'transparent', padding:10}}>
+        <div onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} style={{backgroundColor:isOpen || hover ? 'transparent' : 'transparent', padding:10}}>
             <Div onClick={()=>setIsOpen(!isOpen)} >
                 <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
                     {props.icon}
@@ -29,14 +29,23 @@ const Accordion = props => {
                 }
 
             </Div>
+            
 
             {
             isOpen && 
-            props.renderData.map( e => {
-                return props.renderItem(e);
-            })
-
+            <div style={{maxHeight:400,overflowY:'scroll'}}>
+            {
+                props.headerComponent
             }
+            {
+                props.renderData.map( e => {
+                    return props.renderItem(e);
+                })
+            }
+
+            </div>
+            }
+            
         </div>
     )
 }

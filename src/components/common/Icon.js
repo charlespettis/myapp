@@ -6,14 +6,14 @@ import {MdOutlineForum, MdReplay10, MdForward10, MdOutlineKeyboardArrowRight, Md
 import {RiVideoAddLine, RiAngularjsLine} from 'react-icons/ri';
 import {BsPeople, BsFillPlayFill, BsFillPauseFill, BsVolumeMute, BsVolumeOff, BsVolumeDown, BsVolumeUp, BsPlus} from 'react-icons/bs';
 import {AiFillWindows, AiOutlineArrowLeft, AiOutlineFileText, AiFillApple, AiFillHtml5, AiFillAndroid, AiOutlineConsoleSql} from 'react-icons/ai'
-import {FaReact, FaPython, FaJava, FaVuejs, FaDrupal, FaJoomla, FaLaravel, FaSymfony, FaUnity, FaGamepad, FaAws} from 'react-icons/fa';
+import {FaReact, FaPython, FaJava, FaVuejs, FaDrupal, FaJoomla, FaLaravel, FaSymfony, FaUnity, FaGamepad, FaAws, FaEdit, FaRegEdit, FaTrashAlt, FaTrash, FaRegTrashAlt, FaCheck} from 'react-icons/fa';
 import {SiXcode, SiTypescript, SiSvelte, SiNextdotjs, SiTensorflow, SiDjango, SiFlask,SiPhp,SiAdobecreativecloud, SiBlender,SiCsharp,SiBlazor,SiAutodesk,SiUnrealengine, SiSwift, SiWebassembly, SiRust, SiDotnet, SiSolidity, SiRedux,SiLua,SiGo, SiGodotengine, SiC, SiCplusplus, SiDiscord, SiRuby, SiRubyonrails, SiMongodb, SiPostgresql, SiJavascript, SiFirebase, SiCakephp, } from 'react-icons/si';
 import {DiCss3, DiSqllite} from 'react-icons/di';
 import { TbBrandKotlin} from 'react-icons/tb';
 import {VscTerminalLinux} from 'react-icons/vsc';
 import {GrMysql, GrWordpress} from 'react-icons/gr';
-import {FiFigma} from 'react-icons/fi';
-import {CgCPlusPlus} from 'react-icons/cg';
+import {FiCheck, FiFigma} from 'react-icons/fi';
+import {CgClose, CgCPlusPlus} from 'react-icons/cg';
 
 const Icon = props => {
 
@@ -98,12 +98,11 @@ const Icon = props => {
         'postgre': <SiPostgresql {...props} />,
         'sqllite': <DiSqllite {...props} />,
         'firebase': <SiFirebase {...props} />,
-        'cake': <SiCakephp {...props} />
-        
-
-
-
-
+        'cake': <SiCakephp {...props} />,
+        'gear': <FaRegEdit {...props} />,
+        'trash': <FaRegTrashAlt {...props} />,
+        'check': <FiCheck {...props} />,
+        'close': <CgClose {...props} />
     }
 
     return icons[props.name];

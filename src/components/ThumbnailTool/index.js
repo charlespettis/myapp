@@ -38,24 +38,29 @@ const ThumbnailTool = props => {
     'drupal','joomla', 'java','php', 'laravel', 'symfony','cake','csharp','dotnet','blazor','unity','firebase','swift','rust','webassembly','go',
     'C','C++','mongodb','sql','mysql','postgre','sqllite','ruby','rubyonrails','unreal','godot','gamepad','discord','blender','autodesk', 'adobe', 'figma']
 
+    const createThumbnailString = ({bg: bg, pattern:pattern}) => `${pattern && pattern}${(pattern && bg) && ','}${bg && bg}`;
+
     return(
-        <div style={{marginTop:50,marginBottom:50}}>
+        <div style={{marginTop:20,marginBottom:50}}>
             <p style={{fontSize:18}}>Thumbnail Generator <span style={{fontSize:14,cursor:'pointer',color:'blue',borderBottomWidth:1,borderBottomStyle:'solid'}}>or upload your own</span></p>
             
-            <div style={{display:'flex',flexDirection:'row',alignItems:'flex-start'}}>
+            <div style={{display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
                 
                 <div style={{display:'flex',justifyContent:'space-between',flexDirection:'column',marginRight:20,height:125,width:250,background: `${selectedPattern && selectedPattern}${(selectedPattern && selectedBackground) && ','}${selectedBackground && selectedBackground}`,borderRadius:5,borderStyle:(selectedPattern || selectedBackground) ? 'none' : 'dashed',borderWidth:1,borderColor:'rgba(0,0,0,.25)'}}>
                     <Icon name={selectedIcon ? selectedIcon : 'close'} size={32} style={{visibility: selectedIcon ? 'visible' : 'hidden',filter:'drop-shadow(0px 0px 5px rgba(0,0,0,1)',color:'white',margin:10}}/>
                     <p style={{cursor:'default',textShadow:'0px 0px 5px rgba(0,0,0,1)',alignSelf:'flex-end',marginTop:0,marginBottom:10,marginRight:10,color:'white',fontWeight:'800',fontFamily:'Helvetica',fontSize:18}}>ROADMAP</p>
                 </div>
 
-                <div>
+                <div style={{marginTop:20}}>
                     <p style={{marginTop:0}}>Choose Background</p>
                     
                     <div style={{maxWidth:400,display:'flex',flexDirection:'row',flexWrap:'wrap',rowGap:10,columnGap:10,alignItems:'center'}}>
                         {Object.values(backgroundGradients).map(e => {
                             return(
-                                <div onClick={() => {setSelectedBackground(e)}} style={{cursor:'pointer',borderStyle:selectedBackground === e ? 'solid' : 'none',boxSizing:'border-box',borderWidth:3,borderColor: selectedBackground === e ? 'orange' : 'none', borderRadius:5,background:e, height:50,width:50}}/>
+                                <div onClick={() => {
+                                    setSelectedBackground(e);
+                                    props.onChange(createThumbnailString({bg: e, pattern: selectedPattern}))
+                                }} style={{cursor:'pointer',borderStyle:selectedBackground === e ? 'solid' : 'none',boxSizing:'border-box',borderWidth:3,borderColor: selectedBackground === e ? 'orange' : 'none', borderRadius:5,background:e, height:50,width:50}}/>
 
                             )
                         })}
@@ -65,10 +70,23 @@ const ThumbnailTool = props => {
                     <p style={{marginTop:20}}>Choose Pattern</p>
                     
                     <div style={{maxWidth:400,display:'flex',flexDirection:'row',flexWrap:'wrap',rowGap:10,columnGap:10}}>
-                        <Icon name='close' size={20} style={{padding:15,cursor:'pointer'}} onClick={()=>setSelectedPattern('')}/>
+                        <Icon name='close' size={20} style={{padding:15,cursor:'pointer'}} onClick={()=>{
+                            setSelectedPattern('')
+                            props.onChange({
+                                thumbnail: createThumbnailString({bg: selectedBackground, pattern: ''}),
+                                icon: selectedIcon
+                            })
+
+                        }}/>
                         {Object.values(patterns).map(e => {
                             return(
-                                <div onClick={() => {setSelectedPattern(e)}} style={{cursor:'pointer',borderStyle:selectedPattern === e ? 'solid' : 'none',boxSizing:'border-box',borderWidth:3,borderColor: selectedPattern === e ? 'orange' : 'none',borderRadius:5,background:e, height:50,width:50}}/>
+                                <div onClick={() => {
+                                    setSelectedPattern(e)
+                                    props.onChange({
+                                        thumbnail: createThumbnailString({bg: selectedBackground, pattern: ''}),
+                                        icon: selectedIcon
+                                    })} 
+                                } style={{cursor:'pointer',borderStyle:selectedPattern === e ? 'solid' : 'none',boxSizing:'border-box',borderWidth:3,borderColor: selectedPattern === e ? 'orange' : 'none',borderRadius:5,background:e, height:50,width:50}}/>
 
                             )
                         })}
@@ -76,15 +94,30 @@ const ThumbnailTool = props => {
 
                 </div>
                 <div>
-                    <p style={{marginTop:0}}>Choose Icon</p>
+                    <p style={{marginTop:20}}>Choose Icon</p>
 
-                    <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap',maxHeight:300,overflowY:'scroll',width:500,columnGap:15,rowGap:15}}>
-                    <Icon name='close' size={20} style={{padding:15,cursor:'pointer'}} onClick={()=>setSelectedIcon('')}/>
+                    <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap',maxHeight:200,overflowY:'scroll',width:'100%',columnGap:15,rowGap:15}}>
+                    <Icon name='close' size={20} style={{padding:15,cursor:'pointer'}} onClick={() => {
+                                    props.onChange({
+                                        thumbnail: createThumbnailString({bg: selectedBackground, pattern: selectedPattern}),
+                                        icon: null
+                                    })
+                                    setSelectedIcon('');
+                                }
+
+                                    
+                                    }/>
 
                         {
                             icons.map(e => {
                                 return(
-                                    <Icon onClick={()=>setSelectedIcon(e)} name={e} size={32} style={{cursor:'pointer',padding:7,borderRadius:5, color: selectedIcon === e ? 'blue' : 'black'}} />
+                                    <Icon onClick={() => {props.onChange({
+                                        thumbnail: createThumbnailString({bg: selectedBackground, pattern: selectedPattern}),
+                                        icon: e
+                                    })
+                                    setSelectedIcon(e)
+                                    
+                                }} name={e} size={32} style={{cursor:'pointer',padding:7,borderRadius:5, color: selectedIcon === e ? 'blue' : 'black'}} />
                                 )
                             })
                         }

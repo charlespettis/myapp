@@ -28,6 +28,58 @@ export const api = createApi({
         }),
         authorize: builder.query({
             query: () => 'authorize'
+        }),
+        getUserDetails: builder.query({
+            query: () => 'getUserDetails'
+        }),
+        createVideo: builder.mutation({
+            query: (data) =>({
+                url: 'createVideo',
+                method: 'POST',
+                body: data
+            })
+        }),
+        getPendingGroupItems: builder.query({
+            query: id => ({url: `getPendingGroupItems`,method:'GET',params:{id:id}})
+        }),
+        approvePendingGroupItem: builder.mutation({
+            query: data => ({
+                url: 'approvePendingGroupItem',
+                method: 'PATCH',
+                body: data  
+            })
+        }),
+        getVideo: builder.query({
+            query: id => ({url: 'getVideo', method:'GET',params:{id:id}})
+        }),
+        getAllVideos: builder.query({
+            query: () => 'getAllVideos'
+        }),
+        createArticle: builder.mutation({
+            query: data => ({
+                url: 'createArticle',
+                method: 'POST',
+                body: data
+            })
+        }),
+        getAllArticles: builder.query({
+            query: () => 'getAllArticles'
+        }),
+        getArticle: builder.query({
+            query: id => ({url: 'getArticle', method:'GET', params:{id:id}})
+        }),
+        createCourse: builder.mutation({
+            query: data => ({
+                url: 'createCourse',
+                method:'POST',
+                body: data
+            })
+        }),
+        getAllCourses: builder.query({
+            query: () => 'getAllCourses'
+        }),
+        getCourse: builder.query({
+            query: id => ({url: 'getCourse', method:'GET',params: {id: id}})
         })
     })
 });
@@ -36,5 +88,17 @@ export const {
     useRegisterMutation,
     useLoginMutation,
     useLogoutMutation,
-    useAuthorizeQuery
+    useAuthorizeQuery,
+    useGetUserDetailsQuery,
+    useCreateVideoMutation,
+    useGetPendingGroupItemsQuery,
+    useApprovePendingGroupItemMutation,
+    useGetVideoQuery,
+    useGetAllVideosQuery,
+    useCreateArticleMutation,
+    useGetAllArticlesQuery,
+    useGetArticleQuery,
+    useCreateCourseMutation,
+    useGetAllCoursesQuery,
+    useGetCourseQuery
 } = api;

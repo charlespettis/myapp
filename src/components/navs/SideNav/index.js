@@ -61,9 +61,10 @@ const Content = styled.main`
     display:flex;
     flex-direction:column;
     padding: 0px 15px;
-    height: 100vh;
+    max-height: 100vh;
     width: 83vw;
     overflow-x: scroll;
+    overflow-y: hidden;
 `
 
 
