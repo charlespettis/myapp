@@ -66,7 +66,7 @@ export default function Editor(props) {
   
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <div style={{marginTop:10,paddingTop:0,width:'90%',alignSelf:'center',justifySelf:'center',height:'90%',overflowY:'scroll'}} className="editor-container">
+      <div style={{marginTop:10,paddingTop:0,width:'100%',alignSelf:'center',justifySelf:'center',height:'88%',overflowY:'scroll'}} className="editor-container">
         {!props.text && <ToolbarPlugin />}
         <div className="editor-inner">
           <OnChangePlugin  onChange={onChange} />

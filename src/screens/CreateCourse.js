@@ -100,7 +100,9 @@ const GroupButton = props => {
 
     return(
         <div style={{borderRadius:5,backgroundColor:'white',boxShadow:'0px 0px 5px 0px rgba(0,0,0,0.5)',display:'flex',flexDirection:'row',alignItems:'center',minWidth:200}}>
-            <div onMouseEnter={()=>{setHover('video')}} onMouseLeave={()=>{setHover('')}} style={{borderRadius:5,backgroundColor:hover === 'video' ? '#f1f1f1' : 'transparent',display:'flex',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',padding:30,cursor:'pointer'}}>
+            <div onClick={()=>{
+                 navigate('/create/video', {state: {steps: props.steps} })
+            }} onMouseEnter={()=>{setHover('video')}} onMouseLeave={()=>{setHover('')}} style={{borderRadius:5,backgroundColor:hover === 'video' ? '#f1f1f1' : 'transparent',display:'flex',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',padding:30,cursor:'pointer'}}>
                 <Icon name='video' size={26} style={{marginBottom:10}}/>
                 <p style={{margin:0,padding:0,fontSize:22}}>Video</p>
             </div>

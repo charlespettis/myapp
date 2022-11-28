@@ -14,7 +14,7 @@ const Composer = props => {
     return(
         <div style={{display:'flex',flexDirection:"row",justifyContent:'flex-start',overflowY:'hidden'}}>
 
-            <div style={{overflowY:'scroll',display:'flex',flexDirection:'column',flex:1,height:'100%'}}>
+            <div style={{overflowY:'scroll',display:'flex',flexDirection:'column',flex:1,height:'100%',paddingRight:30}}>
                 
                     <input onChange={e => setValue({...value, title: e.currentTarget.value})} placeholder='Enter a title' type='text' style={{fontSize:22,borderTop:'none',borderLeft:'none',borderRight:'none',width:'100%',height:30}}/>
                     {
@@ -37,14 +37,15 @@ const Composer = props => {
             onChange={e => setValue({...value, ...e})}
             />
             
-            <OutlineButton onClick={()=>props.onSubmit(value)} style={{width:'100%',marginTop:0}}>Publish</OutlineButton>
             </div>
 
-            <div style={{display:'flex',flex:3,alignSelf:'center',height:'100%',marginLeft:30,paddingLeft:30,alignItems:'flex-start', borderLeft:'1px solid rgba(0,0,0,.5)'}}>
+            <div style={{display:'flex',flex:3,alignSelf:'center',height:'100%',alignItems:'flex-start'}}>
         
             {props.component}
+            <OutlineButton onClick={()=>props.onSubmit(value)} style={{width:'20%',marginTop:'auto'}}>Publish</OutlineButton>
 
             </div>
+
 
         </div>
     )

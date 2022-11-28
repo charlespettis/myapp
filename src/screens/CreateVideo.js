@@ -4,14 +4,16 @@ import DropZone from '../components/DropZone';
 import Composer from '../components/common/Composer';
 import { useCreateVideoMutation } from '../app/services/auth';
 import {toast} from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const CreateVideo = () => {
 
     const [create, {isLoading}] = useCreateVideoMutation();
     const [url, setUrl] = React.useState(null);
     const navigate = useNavigate();
-
+    const state = useLocation();
+    const steps = state.state?.steps;
+    console.log(steps);
     const handleCreateVideo = async data => {
         try{
             const result = await create(data)
@@ -32,7 +34,14 @@ const CreateVideo = () => {
                   error: 'There was an error uploading your video. Please try again later.'
                 }
             )
-                navigate('/create');
+                if(steps){
+                    console.log('reeee');
+                    const newObj = Object.assign({type: 'video'}, result.data.dataValues);
+                    console.log(newObj);
+                    steps.push(newObj);
+                    navigate('/create/course', { state:{ steps:steps}})
+        
+                }
             }
         } catch(err){
             console.log(err);
@@ -43,6 +52,7 @@ const CreateVideo = () => {
     return(
         <>
         <Composer
+        noPlacement={steps}
         onSubmit={handleCreateVideo}
         component={<Record
             onChange={e =>{setUrl(e)}}

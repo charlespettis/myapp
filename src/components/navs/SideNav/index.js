@@ -24,10 +24,6 @@ const SideNav = props => {
             </Container>
 
             <Content>
-               
-                <HeaderFunctions/>
-
-
                 <Routes>
                     
                     {
@@ -53,16 +49,15 @@ const Container = styled.div`
     background-color:rgb(24,43,77);
     display:flex;
     min-width: 15vw;
-    width: 15vw;
     flex-direction:column;
 `
 
 const Content = styled.main`
     display:flex;
     flex-direction:column;
-    padding: 0px 15px;
-    max-height: 100vh;
+    padding:20px;
     width: 83vw;
+    max-height: 96vh;
     overflow-x: scroll;
     overflow-y: hidden;
 `

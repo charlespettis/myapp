@@ -13,7 +13,6 @@ const Videos = () => {
                 data?.groups.map(group => {
                     return group.categories.map(category => {
                         return(
-                            <>
                             <Carousel title={category.title} renderData={category.videos} renderItem={item => {
                                 return(
                                 <Link to={`/watch/${item.id}`}>
@@ -21,32 +20,7 @@ const Videos = () => {
                                 </Link>
                                 )
                             }} />
-                            <Divider/>
-                            <Carousel title={category.title} renderData={category.videos} renderItem={item => {
-                                return(
-                                <Link to={`/watch/${item.id}`}>
-                                    <VideoPreview thumbnail={item.thumbnail} title={item.title} />
-                                </Link>
-                                )
-                            }} />
-                            <Divider/>
-                            <Carousel title={category.title} renderData={category.videos} renderItem={item => {
-                                return(
-                                <Link to={`/watch/${item.id}`}>
-                                    <VideoPreview thumbnail={item.thumbnail} title={item.title} />
-                                </Link>
-                                )
-                            }} />
-                            <Divider/>
-                            <Carousel title={category.title} renderData={category.videos} renderItem={item => {
-                                return(
-                                <Link to={`/watch/${item.id}`}>
-                                    <VideoPreview thumbnail={item.thumbnail} title={item.title} />
-                                </Link>
-                                )
-                            }} />
-                            <Divider/>
-                            </>
+                            
                         )
                     })
                 })
