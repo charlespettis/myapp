@@ -13,20 +13,21 @@ import Groups from './screens/Groups';
 import CreateCourse from './screens/CreateCourse';
 import CreateArticle from './screens/CreateArticle';
 import CreateVideo from './screens/CreateVideo';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Landing from './screens/Landing';
 import Register from './screens/Register';
 import Login from './screens/Login'
 import { useAuthorizeQuery } from './app/services/auth';
-import { setCredentials } from './app/reducers/authSlice';
 import EditGroup from './screens/EditGroup';
 import Articles from './screens/Articles';
 import ViewArticle from './screens/ViewArticle';
 import ViewCourse from './screens/ViewCourse';
+import Search from './screens/Search';
+import CreateRoadmap from './screens/CreateRoadmap';
+import CreateGroup from './screens/CreateGroup';
 
 function App() {
   const user = useSelector(state => state.auth.user);
-  const {data, error, isLoading} = useAuthorizeQuery();
 
   return (
     <BrowserRouter>
@@ -64,14 +65,14 @@ const Home = () => {
       />
 
       <SideNav.Screen
-      icon='video'
+      icon='article'
       label='Articles'
       path='/articles'
       element={<Articles />}
       />
 
       <SideNav.Screen
-      icon='list'
+      icon='book'
       label='Courses'
       path='/courses'
       element={<Courses/>}
@@ -104,6 +105,12 @@ const Home = () => {
       />
 
       <SideNav.Screen
+      path='/create/roadmap'
+      element={<CreateRoadmap/>}
+      />
+
+
+      <SideNav.Screen
       path='/create/article'
       element={<CreateArticle/>}
       />
@@ -127,6 +134,17 @@ const Home = () => {
       path='/view/course/:id'
       element={<ViewCourse/>}
       />
+      <SideNav.Screen
+      path='/search'
+      element={<Search/>}
+      />
+
+    <SideNav.Screen
+      path='/create/group'
+      element={<CreateGroup/>}
+      />
+
+
 
     </SideNav>
   )
@@ -135,12 +153,12 @@ const Home = () => {
 const Logo = () => {
   return(
     <p style={{alignSelf:'center',textAlign:'center',fontSize:22,marginTop:50,marginBottom:75,pointerEvents:'none'}}>
-      <span style={{color:'white'}}>
-        Sure
+      <span style={{color:'orange'}}>
+        Skill
       </span>
 
-      <span style={{color:'orange'}}>
-      Learn
+      <span style={{color:'white'}}>
+      Center
       </span>
     </p>
   )

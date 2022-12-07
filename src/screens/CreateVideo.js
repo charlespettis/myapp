@@ -13,10 +13,19 @@ const CreateVideo = () => {
     const navigate = useNavigate();
     const state = useLocation();
     const steps = state.state?.steps;
-    console.log(steps);
+    const [duration, setDuration] = React.useState(0);
+
     const handleCreateVideo = async data => {
+        console.log({
+            duration: duration,
+            ...data
+            });
         try{
-            const result = await create(data)
+            const result = await create({
+                duration: duration,
+                ...data
+                }
+            )
             
             
             if(result.data.url){
@@ -35,9 +44,7 @@ const CreateVideo = () => {
                 }
             )
                 if(steps){
-                    console.log('reeee');
                     const newObj = Object.assign({type: 'video'}, result.data.dataValues);
-                    console.log(newObj);
                     steps.push(newObj);
                     navigate('/create/course', { state:{ steps:steps}})
         
@@ -55,6 +62,8 @@ const CreateVideo = () => {
         noPlacement={steps}
         onSubmit={handleCreateVideo}
         component={<Record
+            url={url}
+            onChangeDuration={e => {setDuration(e)}}
             onChange={e =>{setUrl(e)}}
         />}
         />
@@ -73,14 +82,20 @@ const Record = props => {
             <div style={{display:'flex',flexDirection:'row',alignItems:'center',marginBottom:10,alignSelf:'center'}}>
                 <p onClick={()=>setType('record')} style={{color:type === 'record' ? 'black' : 'rgba(0,0,0,.8)',fontSize:20,fontWeight:type === 'record' ? 600 : 400}}>Record</p> 
                 <span style={{margin:'0px 10px',height:'50%',width:1,backgroundColor:'rgba(0,0,0,.25)'}}/> 
-                <p onClick={()=>setType('upload')} style={{fontWeight:type === 'upload' ? 600 : 400,color:type === 'upload' ? 'black' : 'rgba(0,0,0,.8)',fontSize:20}}>Upload</p>
+                <p onClick={()=>{
+                    if(props.url){
+                        alert('you are about to delete your video lol')
+                    }
+                    setType('upload')
+
+                }} style={{fontWeight:type === 'upload' ? 600 : 400,color:type === 'upload' ? 'black' : 'rgba(0,0,0,.8)',fontSize:20}}>Upload</p>
             </div>
             
             {
             type === 'record' ?
-            <ScreenRecorder onChange={props.onChange} />
+            <ScreenRecorder onChangeDuration={props.onChangeDuration} onChange={props.onChange} />
             :
-            <DropZone />
+            <DropZone  onChange={props.onChange} />
             }
             
         </div>

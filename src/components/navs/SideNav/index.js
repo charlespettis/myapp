@@ -48,18 +48,15 @@ const Container = styled.div`
     height:100vh;
     background-color:rgb(24,43,77);
     display:flex;
-    min-width: 15vw;
+    flex:1;
     flex-direction:column;
 `
 
 const Content = styled.main`
     display:flex;
     flex-direction:column;
-    padding:20px;
     width: 83vw;
-    max-height: 96vh;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    height: 100vh;
 `
 
 

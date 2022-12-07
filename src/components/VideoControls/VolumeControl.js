@@ -37,7 +37,7 @@ const VolumeControl = props => {
             onClick={handleMute}
             />
             {hover && 
-            <input step={.1} min={0} max={1} value={volume}  onChange={changeVolume} type={'range'} style={{marginRight:30}}/>
+            <input step={.1} min={0} max={1} value={volume}  onChange={changeVolume} type={'range'} />
             }
         </div>
     )

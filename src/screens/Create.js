@@ -57,12 +57,23 @@ const Create = () => {
 
         <Accordion
         title="My Roadmaps"
+        headerComponent={
+            <Link to='/create/roadmap'>
+            <button>Add New</button>
+            </Link>
+        }
+
         renderData={[{title:'e'}]}
         renderItem={item => {return(<p>{item.title}</p>)}}
         />
 
         <Accordion
         title="My Groups"
+        headerComponent={
+            <Link to='/create/group'>
+            <button>Add New</button>
+            </Link>
+        }
         renderData={data?.groups}
         renderItem={renderItem}
         />

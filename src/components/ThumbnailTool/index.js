@@ -122,7 +122,7 @@ const MultiSelectItem = props => {
 
 const MultiSelectContainer = props => {
     return(
-        <div style={{maxWidth:400,maxHeight:200,overflowY:'scroll',display:'flex',flexDirection:'row',flexWrap:'wrap',rowGap:10,columnGap:10,alignItems:'center'}}>
+        <div style={{maxHeight:250,overflowY:'scroll',display:'flex',flexDirection:'row',flexWrap:'wrap',rowGap:7,columnGap:7,alignItems:'center'}}>
             {
                 props.allowClear && 
                 <Icon name='close' size={20} style={{padding:15,cursor:'pointer'}} onClick={props.onClear} />

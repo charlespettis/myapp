@@ -50,7 +50,7 @@ export const api = createApi({
             })
         }),
         getVideo: builder.query({
-            query: id => ({url: 'getVideo', method:'GET',params:{id:id}})
+            query: id => ({url: 'getVideo', method:'GET',params:{id:id}}),
         }),
         getAllVideos: builder.query({
             query: () => 'getAllVideos'
@@ -80,6 +80,33 @@ export const api = createApi({
         }),
         getCourse: builder.query({
             query: id => ({url: 'getCourse', method:'GET',params: {id: id}})
+        }),
+        search: builder.query({
+            query: data => ({url:'search', method:'GET',params: {...data}})
+        }),
+        createRoadmap: builder.mutation({
+            query: data => ({
+                url: 'createCourse',
+                method: 'POST',
+                body: data
+            })
+        }),
+        createGroup: builder.mutation({
+            query: data => ({
+                url: 'createGroup',
+                method: 'POST',
+                body: data
+            })
+        }),
+        getAllGroups: builder.query({
+            query: () => 'getAllGroups'
+        }),
+        joinGroup: builder.mutation({
+            query: id => ({
+                url: 'joinGroup',
+                method: 'POST',
+                body: {id: id}
+            })
         })
     })
 });
@@ -100,5 +127,10 @@ export const {
     useGetArticleQuery,
     useCreateCourseMutation,
     useGetAllCoursesQuery,
-    useGetCourseQuery
+    useGetCourseQuery,
+    useLazySearchQuery,
+    useCreateRoadmapMutation,
+    useCreateGroupMutation,
+    useGetAllGroupsQuery,
+    useJoinGroupMutation
 } = api;
