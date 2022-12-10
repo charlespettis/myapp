@@ -2,6 +2,8 @@ import React from 'react';
 import Icon from '../common/Icon';
 import VideoPreview from '../common/VideoPreview';
 import { icons, backgroundGradients, patterns } from './constansts';
+import { MultiSelect, MultiSelectItem } from './MultiSelect';
+
 const ThumbnailTool = props => {
     const [selectedBackground, setSelectedBackground] = React.useState('');
     const [selectedPattern, setSelectedPattern] = React.useState('');
@@ -60,7 +62,7 @@ const ThumbnailTool = props => {
 
                     <p style={{marginTop:20}}>Choose Background</p>
                     
-                    <MultiSelectContainer
+                    <MultiSelect
                     renderData={Object.values(backgroundGradients)}
                     renderItem={item => {
                         return(
@@ -75,7 +77,7 @@ const ThumbnailTool = props => {
 
                     <p style={{marginTop:20}}>Choose Pattern</p>
 
-                    <MultiSelectContainer
+                    <MultiSelect
                     allowClear={true}
                     onClear={clearPattern}
                     renderData={Object.values(patterns)}
@@ -91,7 +93,7 @@ const ThumbnailTool = props => {
                     />
                     <p style={{marginTop:20}}>Choose Icon</p>
 
-                    <MultiSelectContainer
+                    <MultiSelect
                     allowClear={true}
                     onClear={clearIcon}
                     renderData={Object.values(icons)}
@@ -111,34 +113,6 @@ const ThumbnailTool = props => {
         </div>
     )
 }
-
-const MultiSelectItem = props => {
-    return(
-        <div onClick={() => props.onClick(props.value)} style={{cursor:'pointer',borderStyle:props.selected ? 'solid' : 'none',boxSizing:'border-box',borderWidth:3,borderColor: props.selected ? 'orange' : 'none', borderRadius:5,background:props.value, height:50,width:50}}>
-        {props.children}
-        </div>
-    )
-}
-
-const MultiSelectContainer = props => {
-    return(
-        <div style={{maxHeight:250,overflowY:'scroll',display:'flex',flexDirection:'row',flexWrap:'wrap',rowGap:7,columnGap:7,alignItems:'center'}}>
-            {
-                props.allowClear && 
-                <Icon name='close' size={20} style={{padding:15,cursor:'pointer'}} onClick={props.onClear} />
-            }
-            {
-                props.renderData.map(e => {
-                    return(
-                        props.renderItem(e)
-                    )
-                })
-            }
-        </div>
-    )
-}
-
-
 
 export default ThumbnailTool;
 

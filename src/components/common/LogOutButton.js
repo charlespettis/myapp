@@ -3,19 +3,18 @@ import Icon from "./Icon";
 import { useLogoutMutation } from "../../app/services/auth";
 import { setCredentials } from "../../app/reducers/authSlice";
 import {useDispatch} from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 const LogOutButton = () => {
     const [hover, setHover] = React.useState(false);
     const [logout, {isLoading}] = useLogoutMutation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const handleLogout = async () => {
-        try{
-            const result = await logout();
-            dispatch(setCredentials(null));
-        }catch(err){
-            console.log(err);
-        }
+    const handleLogout = async () => {        
+        const result = await logout();
+        dispatch(setCredentials({payload:null}));
+        navigate('/')
     }
 
     return(

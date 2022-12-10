@@ -1,7 +1,9 @@
 import React from 'react';
-import {BsPause, BsPauseFill, BsPlay, BsRecord, BsRecordFill, BsStop, BsTrash} from 'react-icons/bs';
-import {BsFillStopFill} from 'react-icons/bs';
+import {BsPause, BsPlay, BsRecord, BsStop} from 'react-icons/bs';
 import {FiDelete} from 'react-icons/fi';
+import styled from 'styled-components';
+import PauseOverlay from './PauseOverlay';
+import UnsupportedPlatform from './UnsupportedPlatform';
 
 window.Buffer = window.Buffer || require('buffer').Buffer
 
@@ -55,7 +57,6 @@ const ScreenRecorder = props => {
 
             const blob = new Blob(chunks, {type: "video/webm"});
             const url = URL.createObjectURL(blob);
-            console.log(timeStamp);
             const buffer = Buffer.from(await blob.arrayBuffer())
             
             setRecordingPath(url);
@@ -82,7 +83,6 @@ const ScreenRecorder = props => {
         let final = finalRef.current;
 
         final.srcObject.getTracks().forEach(track => track.stop());
-        console.log(final.src)
         setRecording(false)
         setIsPaused(false);
     }
@@ -106,71 +106,113 @@ const ScreenRecorder = props => {
     
     return(
         <>
-            {//smaller player
-            }
-            <video controls style={{display: recordingPath ? 'flex':'none' ,backgroundColor:'black',alignSelf:'center'}} ref={finalRef} width={'100%'}/>
+        {
+            MediaRecorder.isTypeSupported("video/webm; codecs=vp9") ? 
+            <>
+            <FinalVideoPreview shown={recordingPath} controls  ref={finalRef}/>
                 
-            <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',alignSelf:'center',width:'100%'}}>
+            <ScreenRecorderContainer>
                 
-                <div style={{position:'relative',display: recordingPath ? 'none' : 'flex', backgroundColor:'black',alignSelf:'center',width:'90%'}}>
-                <video style={{boxShadow: recording ? '0px 0px 10px red' : 'none'}} ref={previewRef} width={'100%'}/>
-                
-                {
-                    paused && 
-                    <div style={{position:'absolute',height:'100%',width:'100%',backgroundColor:'rgba(0,0,0,.75)',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
-                        <BsPause color='white' size={42} />
-                        <p style={{textAlign:'center',color:'white',width:'80%',fontWeight:'bold'}}>Your recording is currently paused.  Click "Resume Recording" below to pick up where you left off, or click "Stop Recording" to finalize and preview your video.</p>
-                    </div>
-                }
-                </div>
+                <ScreenRecorderPreviewStreamContainer shown={!recordingPath} >
+                    <ScreenRecorderPreviewStream recording={recording} ref={previewRef}/>
+                    { paused && <PauseOverlay /> }
+                </ScreenRecorderPreviewStreamContainer>
 
-                <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
+                <ScreenRecorderButtonGroup>
+                    <ScreenRecorderButton disabled={recording || recordingPath} onClick={startRecording}>
+                        <BsRecord color='red' size={22} /> Start Recording    
+                    </ScreenRecorderButton>
 
-                <Button style={(recording || recordingPath)&& {opacity:.65,pointerEvents:'none'}} onClick={startRecording}>
-                <><BsRecord color='red' size={22} /> Start Recording </>    
-                </Button>
-
-                {
+                    {
                     paused ? 
+                    <ScreenRecorderButton disabled={!recording} onClick={resumeRecording}>
+                        <BsPlay color='red' size={22} /> Resume Recording    
+                    </ScreenRecorderButton>
+                    :
+                    <ScreenRecorderButton disabled={!recording}  onClick={pauseRecording}>
+                        <BsPause color='red' size={22} /> Pause Recording
+                    </ScreenRecorderButton>
+                    }
 
-                <Button style={!recording && {opacity:.65,pointerEvents:'none'}} onClick={resumeRecording}>
-                <><BsPlay color='red' size={22} /> Resume Recording </>    
-                </Button>
-                :
-                <Button style={!recording && {opacity:.65,pointerEvents:'none'}} onClick={pauseRecording}>
-                <><BsPause color='red' size={22} />Pause Recording </>    
-                </Button>
+                    <ScreenRecorderButton disabled={!recording} onClick={stopRecording}>
+                        <BsStop color='red' size={22}/> Stop Recording 
+                    </ScreenRecorderButton>
 
-                }
-                <Button style={!recording && {opacity:.65,pointerEvents:'none'}} onClick={stopRecording}>
-                <><BsStop color='red' size={22}/> Stop Recording </>
-                </Button>
+                    <ScreenRecorderButton disabled={!recordingPath} onClick={deleteRecording}>
+                        <FiDelete color='red' size={22} style={{marginRight:5}}/> Delete Recording 
+                    </ScreenRecorderButton>
+                </ScreenRecorderButtonGroup>
 
-                <Button onClick={deleteRecording} style={!recordingPath && {opacity:.65,pointerEvents:'none'}}>
-                <><FiDelete color='red' size={16} style={{marginRight:5}}/> Delete Recording </>
-                </Button>
-
-
-
-
-                </div>
-
-
-
-
-            </div>
-            
+            </ScreenRecorderContainer>
+            </>
+            :
+            <UnsupportedPlatform />
+        }
         </>
     )
 
 }
 
-const Button = props => {
-    return(
-        <button onClick={props.onClick} style={{cursor:'pointer',backgroundColor:'white',border:'none',padding:'7px 20px 7px 7px',fontSize:14,maxWidth:300,alignSelf:'center', color:'black',marginTop:30,borderRadius:10,justifyContent:'center',display:'flex',flexDirection:'row',alignItems:'center', ...props.style}} >
-            {props.children}
-        </button>
-    )
-}
+const ScreenRecorderContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
+    height: 90%;
+`
+
+const FinalVideoPreview = styled.video`
+    display: ${props => props.shown ? 'flex' : 'none'};
+    background-color: black;
+    align-self: center;
+    width:100%;
+`
+
+const ScreenRecorderPreviewStream = styled.video`
+    width:100%;
+    box-shadow:${props => props.recording ? '0px 0px 10px red' : 'none'};
+`
+
+const ScreenRecorderPreviewStreamContainer = styled.div`
+    position:relative;
+    display: ${props => props.shown ? 'flex' : 'none'};
+    background-color:black;
+    align-self:center;
+    width:90%;
+`
+
+
+const ScreenRecorderButtonGroup = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 80%;
+`
+
+const ScreenRecorderButton = styled.button`
+    font-family:'Helvetica';
+    cursor:pointer;
+    background-color:white;
+    border:none;
+    box-shadow:0px 0px 5px rgba(0,0,0,.25);
+    padding:7px 30px;
+    font-size:14px;
+    max-width:300px;
+    align-self:center;
+    color:black;
+    margin-top:30px;
+    border-radius:5px;
+    justify-content:center;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    opacity: ${props => props.disabled ? .5 : 1};
+    pointer-events: ${props => props.disabled ? 'none' : 'all'};
+`
+
+
 
 export default ScreenRecorder;

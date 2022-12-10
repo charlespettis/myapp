@@ -1,15 +1,12 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import HeaderFunctions from './HeaderFunctions';
 import Screen from './Screen';
 import LogOutButton from '../../common/LogOutButton';
-import CreateCourse from '../../../screens/CreateCourse';
-import CreateArticle from '../../../screens/CreateArticle';
 const SideNav = props => {
     return(
-        <Row>
-            <Container>
+        <Container>
+            <Sidebar>
                 {props.headerComponent}
 
                 <nav>
@@ -21,7 +18,7 @@ const SideNav = props => {
                 </nav>
 
                 <LogOutButton/>
-            </Container>
+            </Sidebar>
 
             <Content>
                 <Routes>
@@ -33,19 +30,16 @@ const SideNav = props => {
                             )
                         })
                     }
-                    <Route path='/create/course' element={<CreateCourse/>} />
-                    <Route path='/create/article' element={<CreateArticle/>} />
 
                 </Routes>
 
  
             </Content>
-        </Row>
+        </Container>
     )
 }
 
-const Container = styled.div`
-    height:100vh;
+const Sidebar = styled.div`
     background-color:rgb(24,43,77);
     display:flex;
     flex:1;
@@ -55,15 +49,16 @@ const Container = styled.div`
 const Content = styled.main`
     display:flex;
     flex-direction:column;
-    width: 83vw;
-    height: 100vh;
+    flex:5;
+    overflow: scroll;
 `
 
 
-const Row = styled.div`
+const Container = styled.div`
   display:flex;
   flex-direction: row;
-  max-width: 100vw;
+  height:100vh;
+  width:100vw;
 `
 
 SideNav.Screen = Screen;

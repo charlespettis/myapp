@@ -7,25 +7,37 @@ import VideoPreview from '../components/common/VideoPreview';
 
 const Videos = () => {
     const {data, isLoading} = useGetAllVideosQuery();
+
+    const renderItem = category => {
+        return(
+            <Carousel title={category.title} renderData={category.videos} renderItem={item => {
+                return(
+                <Link to={`/watch/${item.id}`}>
+                    <VideoPreview icon={item.icon} thumbnail={item.thumbnail} title={item.title} />
+                </Link>
+                )
+            }} />
+        )
+    }
+
+    return(
+            <Catalog
+            renderData={data?.groups}
+            renderItem={renderItem}
+            />
+    )
+}
+
+const Catalog = props => {
     return(
         <div style={{display:'flex',flexDirection:'column',overflowY:'scroll'}}>
             {
-                data?.groups.map(group => {
-                    return group.categories.map(category => {
-                        return(
-                            <Carousel title={category.title} renderData={category.videos} renderItem={item => {
-                                return(
-                                <Link to={`/watch/${item.id}`}>
-                                    <VideoPreview icon={item.icon} thumbnail={item.thumbnail} title={item.title} />
-                                </Link>
-                                )
-                            }} />
-                            
-                        )
+                props.renderData.map(e => {
+                    return e.categories.map(e => {
+                        return props.renderItem(e)
                     })
                 })
             }
-            
         </div>
     )
 }

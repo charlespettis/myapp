@@ -34,7 +34,7 @@ const CourseOutline = props => {
 
     return(
         <>
-            <div style={{display:'grid',gridTemplateRows:'repeat(autofill,minmax(100px,1fr))',gridTemplateColumns:'repeat(auto-fill, minmax(300px,1fr) )',rowGap:100,width:'100%'}}>
+            <div style={{display:'grid',gridTemplateRows:'repeat(autofill,minmax(100px,1fr))',gridTemplateColumns:'repeat(auto-fill, minmax(300px,1fr) )',rowGap:100,width:'100%',marginTop:20}}>
                 {
                     generateOutline()
                 }
@@ -53,12 +53,12 @@ const CourseOutline = props => {
 }
 
 const GroupButton = props => {
-    const [hover, setHover] = React.useState('video');
+    const [hover, setHover] = React.useState('');
     const [type, setType] = React.useState('');
     const navigate = useNavigate();
 
     return(
-        <div style={{borderRadius:5,backgroundColor:'white',boxShadow:'0px 0px 5px 0px rgba(0,0,0,0.5)',display:'flex',flexDirection:'row',alignItems:'center'}}>
+        <div style={{borderRadius:5,backgroundColor:'white',boxShadow:'0px 0px 5px 0px rgba(0,0,0,0.25)',display:'flex',flexDirection:'row',alignItems:'center'}}>
             {
                 type ? 
             <>
@@ -66,35 +66,35 @@ const GroupButton = props => {
                 props.setVisible(false)
 
                  navigate(`/create/${type}`, {state: {steps: props.steps} })
-            }} onMouseEnter={()=>{setHover('video')}} onMouseLeave={()=>{setHover('')}} style={{borderRadius:5,backgroundColor:hover === 'video' ? '#f1f1f1' : 'transparent',display:'flex',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',padding:30,cursor:'pointer'}}>
+            }} onMouseEnter={()=>{setHover('video')}} onMouseLeave={()=>{setHover('')}} style={{backgroundColor:hover === 'video' ? '#f1f1f1' : 'transparent',display:'flex',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',padding:22,cursor:'pointer'}}>
                 <Icon name='plus' size={26} style={{marginBottom:10}}/>
-                <p style={{margin:0,padding:0,fontSize:22}}>Create</p>
+                <p style={{margin:0,padding:0,fontSize:20}}>Create</p>
             </div>
 
             <div onClick={()=>{
                 navigate('/search', {state: {type: type, steps: props.steps} })
-            }} onMouseEnter={()=>setHover('article')} onMouseLeave={()=>setHover('')} style={{borderRadius:5,backgroundColor:hover === 'article' ? '#f1f1f1' : 'transparent',display:'flex',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',padding:30,cursor:'pointer'}}>
+            }} onMouseEnter={()=>setHover('article')} onMouseLeave={()=>setHover('')} style={{backgroundColor:hover === 'article' ? '#f1f1f1' : 'transparent',display:'flex',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',padding:22,cursor:'pointer'}}>
                 <Icon name='search' size={26} style={{marginBottom:10}}/>
-                <p style={{margin:0,padding:0,fontSize:22}}>Search</p>
+                <p style={{margin:0,padding:0,fontSize:20}}>Search</p>
             </div>
             </>
             :
             <>
-            <div onClick={()=>setType('video')} onMouseEnter={()=>{setHover('video')}} onMouseLeave={()=>{setHover('')}} style={{borderRadius:5,backgroundColor:hover === 'video' ? '#f1f1f1' : 'transparent',display:'flex',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',padding:30,cursor:'pointer'}}>
+            <div onClick={()=>setType('video')} onMouseEnter={()=>{setHover('video')}} onMouseLeave={()=>{setHover('')}} style={{backgroundColor:hover === 'video' ? '#f1f1f1' : 'transparent',display:'flex',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',padding:22,cursor:'pointer'}}>
                 <Icon name='video' size={26} style={{marginBottom:10}}/>
-                <p style={{margin:0,padding:0,fontSize:22}}>Video</p>
+                <p style={{margin:0,padding:0,fontSize:20}}>Video</p>
             </div>
 
-            <div onClick={()=>setType('article')} onMouseEnter={()=>setHover('article')} onMouseLeave={()=>setHover('')} style={{borderRadius:5,backgroundColor:hover === 'article' ? '#f1f1f1' : 'transparent',display:'flex',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',padding:30,cursor:'pointer'}}>
+            <div onClick={()=>setType('article')} onMouseEnter={()=>setHover('article')} onMouseLeave={()=>setHover('')} style={{backgroundColor:hover === 'article' ? '#f1f1f1' : 'transparent',display:'flex',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',padding:22,cursor:'pointer'}}>
                 <Icon name='article' size={26} style={{marginBottom:10}}/>
-                <p style={{margin:0,padding:0,fontSize:22}}>Article</p>
+                <p style={{margin:0,padding:0,fontSize:20}}>Article</p>
             </div>
             {props.roadmap && 
             <div onClick={()=>{
                 setType('course')
-            }} onMouseEnter={()=>setHover('course')} onMouseLeave={()=>setHover('')} style={{borderRadius:5,backgroundColor:hover === 'course' ? '#f1f1f1' : 'transparent',display:'flex',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',padding:30,cursor:'pointer'}}>
+            }} onMouseEnter={()=>setHover('course')} onMouseLeave={()=>setHover('')} style={{backgroundColor:hover === 'course' ? '#f1f1f1' : 'transparent',display:'flex',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',padding:20,cursor:'pointer'}}>
                 <Icon name='book' size={26} style={{marginBottom:10}}/>
-                <p style={{margin:0,padding:0,fontSize:22}}>Course</p>
+                <p style={{margin:0,padding:0,fontSize:20}}>Course</p>
             </div>}
 
 
@@ -108,7 +108,7 @@ const EmptyCell = props => {
     const [hover, setHover] = React.useState(false);
 
     return(
-        <button onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} onClick={props.onClick} style={{width:'18em',height:'10em',backgroundColor:hover ? '#f1f1f1' : 'transparent',borderStyle:'dashed',borderRadius:5, cursor:'pointer', ...props.style}}>
+        <button onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} onClick={props.onClick} style={{width:'21em',height:'12em',backgroundColor:'white',borderRadius:5,border:'none',boxShadow:`0px 0px ${hover ? '5px' : '5px'} rgba(0,0,0,.25)`, cursor:'pointer', ...props.style}}>
             <Icon name='plus' size={32} color='black' style={{padding:50}}/>
         </button>
     )

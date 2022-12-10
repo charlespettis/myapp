@@ -1,5 +1,6 @@
 import React from "react";
 import { useDropzone } from 'react-dropzone';
+import styled from "styled-components";
 import Icon from "./common/Icon";
 
 const DropZone = props => {
@@ -17,7 +18,7 @@ const DropZone = props => {
     
 
     return(
-    <div style={{alignSelf:'center',display:'flex',flexDirection:'column',marginBottom:90,alignItems:'center',justifyContent:'center',borderWidth:1,borderStyle:'dashed',borderColor:'black',color:'black',width:'90%',height:500,borderRadius:10}} {...getRootProps()}>
+    <DropZoneContainer {...getRootProps()}>
         <input {...getInputProps()} />
         {
         fileDetails? 
@@ -27,7 +28,7 @@ const DropZone = props => {
         </>
         :
         <>    
-        <Icon name='add' size={26} style={{color:'rgba(0,0,0,.95)'}}/>
+        <Icon name='add' size={26} color={'rgba(0,0,0,.95)'}/>
         {
             isDragActive ?
             <p>Drop the files here ...</p> :
@@ -35,9 +36,25 @@ const DropZone = props => {
         }
         </>
         }
-    </div>
+    </DropZoneContainer>
 
     )
 }
+
+const DropZoneContainer = styled.div`
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 90px;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-style: dashed;
+    border-color: black;
+    color: black;
+    width: 90%;
+    height: 500px;
+    border-radius: 10px;
+`
 
 export default DropZone;

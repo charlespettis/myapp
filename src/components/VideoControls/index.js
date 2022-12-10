@@ -9,7 +9,6 @@ const VideoControls = props => {
     const video = props.video;
     const navigate = useNavigate();
     const [paused, setPaused] = React.useState(false);
-    const [position, setPosition] = React.useState(0);
     const [hover, setHover] = React.useState();
     const [timeStamp, setTimeStamp] = React.useState();
 
@@ -33,7 +32,9 @@ const VideoControls = props => {
     }
 
     const handleClick = e =>{
-        video.current.currentTime = (e.clientX / e.target.clientWidth) * props.duration
+        props.setLoading(true);
+        const targetTime = (e.clientX / e.target.clientWidth) * props.duration
+        video.current.currentTime = targetTime;
     }
 
     const handleMouseOver = e => {
@@ -45,10 +46,10 @@ const VideoControls = props => {
     }
 
     return(
-        <div onClick={play} style={{position:'absolute',height:'100%',width:'100vw',display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
+        <div onDoubleClick={()=>props.onRequestFullscreen()} onClick={play} style={{position:'absolute',height:'100%',width:'100vw',display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
             <Icon name='arrow-left-full' onClick={()=>navigate(-1)} size={42} color='white' style={{marginTop:20,marginLeft:20,cursor:'pointer'}}/>
             
-            <div onClick={e=>{e.stopPropagation()}} style={{height:100,width:'99%',display:'flex',flexDirection:'column',backgroundColor:'rgba(0,0,0,.75)'}}>
+            <div onClick={e=>{e.stopPropagation()}} style={{height:100,width:'100%',display:'flex',flexDirection:'column',backgroundColor:'rgba(0,0,0,.75)'}}>
                 {hover &&<p style={{position:'absolute',backgroundColor:'white',padding:'5px 10px',left:hover,top: window.innerHeight -150, boxShadow:'0px 0px 5px rgba(0,0,0,.5)'}}>{timeStamp}</p>}
                 <Thumb 
                 onMouseOver={handleMouseOver}
@@ -60,7 +61,7 @@ const VideoControls = props => {
 
                     <div style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'flex-start',marginTop:10,flex:1}}>
 
-                    <Icon name={paused ? 'play' : 'pause'} size={72} color='white' style={{marginLeft:0,cursor:'pointer'}} />
+                    <Icon name={video.current.paused ? 'play' : 'pause'} size={72} color='white' style={{marginLeft:0,cursor:'pointer'}} />
                     <Icon name='back-10' color='white' size={46} onClick={e => seek(e,-10)} style={{marginLeft:20,cursor:'pointer'}}/>
                     <Icon name='forward-10' color='white' size={46} onClick={e => seek(e,10)} style={{marginLeft:20,cursor:'pointer'}}/>
                     <VolumeControl  onChange={changeVolume}/>
@@ -73,12 +74,13 @@ const VideoControls = props => {
 
 
                     <div style={{display:'flex',justifyContent:'flex-end',flexDirection:'row',alignItems:'center',marginTop:10,flex:1}}>
-                    <p style={{color:'whitesmoke',fontSize:16}}>{`${Math.floor(props.currentTime / 60)}:${Math.floor(props.currentTime - Math.floor(props.currentTime / 60) * 60)}`} / {`${Math.floor(props.duration / 60)}:${Math.floor(props.duration - Math.floor(props.duration / 60) * 60)}`}</p>
+                    <p style={{color:'whitesmoke',fontSize:16}}>{`${Math.floor(video.current.currentTime / 60)}:${Math.floor(video.current.currentTime - Math.floor(video.current.currentTime / 60) * 60)}`} / {`${Math.floor(props.duration / 60)}:${Math.floor(props.duration - Math.floor(props.duration / 60) * 60)}`}</p>
                     <Icon name='flag' style={{marginLeft:20}} size={32} color='white' />
                     </div>
 
                 </div>
              </div>
+
         </div>
     )
 

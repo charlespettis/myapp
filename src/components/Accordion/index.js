@@ -1,66 +1,69 @@
 import React from 'react';
 import styled from 'styled-components';
 import Icon from '../common/Icon';
+import PropTypes from 'prop-types';
+
 
 const Accordion = props => {
     const [isOpen, setIsOpen] = React.useState(false);
-    const [hover, setHover] = React.useState(false);
-    
-    //TODO:
-    //rewrite renderdata prop to accept array of objects for multiple toggleable drawers and render them all at once rather than needing to write <Accordion /> more than once
-    //example [{title:'Hello', data: [{x:1},{x:2},{x:3}]}] creates accordion with one openable block labeled Hello that has data for 3 nested list items that are rendered from component in props.renderItem with x as the item props
 
     return(
-        <div onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} style={{backgroundColor:isOpen || hover ? 'transparent' : 'transparent', padding:10}}>
-            <Div onClick={()=>setIsOpen(!isOpen)} >
-                <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
-                    {props.icon}
+        <AccordionContainer>
+            <AccordionTitleContainer onClick={()=>setIsOpen(!isOpen)} >
 
-                    <P>
+                    <AccordionTitle>
                         {props.title}
-                    </P>
-                </div>
+                    </AccordionTitle>
 
+                    <Icon name={isOpen ? 'arrow-up' : 'arrow-down'} size={22} />
+
+            </AccordionTitleContainer>
+            
+
+            {
+                isOpen && 
+                <AccordionItemsContainer>
                 {
-                    isOpen ? 
-                    <Icon name='arrow-up' size={22} />
-                    :
-                    <Icon name='arrow-down' size={22} />
+                    props.headerComponent
+                }
+                {
+                    props.renderData.map( e => {
+                        return props.renderItem(e);
+                    })
                 }
 
-            </Div>
-            
-
-            {
-            isOpen && 
-            <div style={{maxHeight:400,overflowY:'scroll'}}>
-            {
-                props.headerComponent
-            }
-            {
-                props.renderData.map( e => {
-                    return props.renderItem(e);
-                })
-            }
-
-            </div>
+                </AccordionItemsContainer>
             }
             
-        </div>
+        </AccordionContainer>
     )
 }
 
-
-const P = styled.p`
-    font-size:18px;
+const AccordionContainer = styled.div`
+    padding:0px;
 `
 
-const Div = styled.div`
+const AccordionTitleContainer = styled.div`
     display:flex;
     flex-direction:row;
     align-items:center;
     justify-content:space-between;
     cursor:pointer;
 `
+
+const AccordionTitle = styled.p`
+`
+
+const AccordionItemsContainer = styled.div`
+    max-height: 400px;
+    overflow-y:scroll;
+`
+
+Accordion.propTypes = {
+    headerComponent: PropTypes.element,
+    renderData: PropTypes.array,
+    renderItem: PropTypes.arrayOf(PropTypes.object),
+}
+
 
 export default Accordion;

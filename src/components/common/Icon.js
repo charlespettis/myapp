@@ -6,7 +6,7 @@ import {MdOutlineForum, MdReplay10, MdForward10, MdOutlineKeyboardArrowRight, Md
 import {RiVideoAddLine, RiAngularjsLine} from 'react-icons/ri';
 import {BsPeople, BsFillPlayFill, BsFillPauseFill, BsVolumeMute, BsVolumeOff, BsVolumeDown, BsVolumeUp, BsPlus, BsFlag} from 'react-icons/bs';
 import {AiFillWindows, AiOutlineArrowLeft, AiOutlineFileText, AiFillApple, AiFillHtml5, AiFillAndroid, AiOutlineConsoleSql} from 'react-icons/ai'
-import {FaReact, FaPython, FaJava, FaVuejs, FaDrupal, FaJoomla, FaLaravel, FaSymfony, FaUnity, FaGamepad, FaAws, FaEdit, FaRegEdit, FaTrashAlt, FaTrash, FaRegTrashAlt, FaCheck} from 'react-icons/fa';
+import {FaReact, FaPython, FaJava, FaVuejs, FaDrupal, FaJoomla, FaLaravel, FaSymfony, FaUnity, FaGamepad, FaAws, FaEdit, FaRegEdit, FaTrashAlt, FaTrash, FaRegTrashAlt, FaCheck, FaUsers} from 'react-icons/fa';
 import {SiXcode, SiTypescript, SiSvelte, SiNextdotjs, SiTensorflow, SiDjango, SiFlask,SiPhp,SiAdobecreativecloud, SiBlender,SiCsharp,SiBlazor,SiAutodesk,SiUnrealengine, SiSwift, SiWebassembly, SiRust, SiDotnet, SiSolidity, SiRedux,SiLua,SiGo, SiGodotengine, SiC, SiCplusplus, SiDiscord, SiRuby, SiRubyonrails, SiMongodb, SiPostgresql, SiJavascript, SiFirebase, SiCakephp, SiAmazonaws, SiAppstore, SiAmazons3, } from 'react-icons/si';
 import {DiCss3, DiSqllite} from 'react-icons/di';
 import { TbBrandKotlin} from 'react-icons/tb';
@@ -15,6 +15,8 @@ import {GrMysql, GrWordpress} from 'react-icons/gr';
 import {FiCheck, FiFigma} from 'react-icons/fi';
 import {CgClose, CgCPlusPlus} from 'react-icons/cg';
 import { GrDocumentVideo } from 'react-icons/gr';
+import {TiWarningOutline} from 'react-icons/ti'
+
 const Icon = props => {
 
     const icons = {
@@ -110,7 +112,9 @@ const Icon = props => {
         's3': <SiAmazons3 {...props}/>,
         'accessibility': <MdAccessibility {...props} />,
         'video-file': <GrDocumentVideo {...props} />,
-        'flag': <BsFlag {...props} />
+        'flag': <BsFlag {...props} />,
+        'warning': <TiWarningOutline {...props} />,
+        'users': <FaUsers {...props}/>
         
     }
 

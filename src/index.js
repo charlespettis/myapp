@@ -8,12 +8,15 @@ import {store} from './app/store';
 import {ToastContainer} from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { AlertProvider } from './components/Alert';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <AlertProvider>
+        <App />
+      </AlertProvider>
     </Provider>
     <ToastContainer />
   </React.StrictMode>

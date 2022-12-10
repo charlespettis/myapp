@@ -1,6 +1,7 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
+    refetchOnMountOrArgChange: 300,
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:8080/api/',
         credentials:'include'
@@ -107,6 +108,32 @@ export const api = createApi({
                 method: 'POST',
                 body: {id: id}
             })
+        }),
+        createCategory: builder.mutation({
+            query: data => ({
+                url: 'createCategory',
+                method: 'POST',
+                body: data
+            })
+        }),
+        getSubscribedGroupsCategories: builder.query({
+            query: () => 'getSubscribedGroupsCategories'
+        }),
+        deleteCategory: builder.mutation({
+            query: id => ({
+                url: 'deleteCategory',
+                method: 'DELETE',
+                body: {
+                    id
+                }
+            })
+        }),
+        searchGroups: builder.query({
+            query: search => ({
+                url: 'searchGroups',
+                method: "GET",
+                params: {search: search}
+            })
         })
     })
 });
@@ -132,5 +159,10 @@ export const {
     useCreateRoadmapMutation,
     useCreateGroupMutation,
     useGetAllGroupsQuery,
-    useJoinGroupMutation
+    useJoinGroupMutation,
+    useCreateCategoryMutation,
+    useGetSubscribedGroupsCategoriesQuery,
+    useDeleteCategoryMutation,
+    useLazySearchGroupsQuery
+
 } = api;
