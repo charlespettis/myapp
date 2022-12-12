@@ -8,21 +8,25 @@ const Carousel = props => {
 
     const handleClickRightArrow = () => {
         const carousel = carouselRef.current;
-        const newLeftPosition = carousel.scrollLeft + carousel.clientWidth;
+        const newLeftPosition = carousel.scrollLeft + carousel.clientWidth - 28;
         const endReached = newLeftPosition > carousel.scrollWidth - carousel.clientWidth * 1.5
 
         carouselRef.current.scrollTo({top: 0, left:newLeftPosition, behavior:'smooth'})
 
         if( endReached ) {
-            props.onEndReached();
+            const maxedOutVideos = props.renderData.length % 15 !== 0;
+            
+            if(!maxedOutVideos){
+                props.onEndReached();
+            }
         }
 
     }
 
     const handleLeftClickArrow = () => {
-            carouselRef.current.scrollTo({top: 0, left:carouselRef.current.scrollLeft - carouselRef.current.clientWidth, behavior:'smooth'})
+            carouselRef.current.scrollTo({top: 0, left:carouselRef.current.scrollLeft - carouselRef.current.clientWidth + 28, behavior:'smooth'})
     }
-
+    
     return(
         <section onMouseEnter={()=>{setHover(true)}} onMouseLeave={()=>{setHover(false)}} style={{position:'relative'}} >
             <CarouselTitle>{props.title}</CarouselTitle>
@@ -41,10 +45,12 @@ const Carousel = props => {
                     <CarouselControlsButton onClick={handleLeftClickArrow}>
                         <Icon name="arrow-left" color='white' size={32}/>
                     </CarouselControlsButton>
+                    
 
-                    <CarouselControlsButton onClick={handleClickRightArrow}>
+                    <CarouselControlsButton visible={true} onClick={handleClickRightArrow}>
                         <Icon name="arrow-right" color='white' size={32}/>
                     </CarouselControlsButton>
+                    
                 </CarouselControlsContainer>
             }
             </CarouselItemsContainer>
@@ -56,15 +62,15 @@ const CarouselItemsContainer = styled.div`
     display:flex;
     flex-direction: row;
     align-items: flex-start;
-    overflow-x: scroll;
+    overflow-x: hidden;
+    padding-left: 50px;
     gap:5px;
-    padding-left: 20px;
 `
 
 const CarouselTitle = styled.p`
     font-size: 22px;
     font-weight: 500;
-    margin-left:20px;
+    margin-left:25px;
 `
 
 const CarouselControlsContainer = styled.div`
@@ -79,9 +85,9 @@ const CarouselControlsContainer = styled.div`
 `
 
 const CarouselControlsButton = styled.div`
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(0,0,0,.3);
     height:100%;
-    width:3%;
+    width:50px;
     display:flex;
     justify-content: center;
     align-items: center;

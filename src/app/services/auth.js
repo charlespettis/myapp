@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
-    refetchOnMountOrArgChange: 300,
+    refetchOnMountOrArgChange: false,
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:8080/api/',
         credentials:'include'
@@ -54,7 +54,22 @@ export const api = createApi({
             query: id => ({url: 'getVideo', method:'GET',params:{id:id}}),
         }),
         getAllVideos: builder.query({
-            query: () => 'getAllVideos'
+            query: data => ({
+                url: 'getAllVideos',
+                method:'GET',
+                params:{
+                    ...data
+                }
+            })
+        }),
+        getMoreVideos: builder.query({
+            query: data => ({
+                url: 'getMoreVideos',
+                method: "GET",
+                params: {
+                    ...data
+                }
+            })
         }),
         createArticle: builder.mutation({
             query: data => ({
@@ -149,6 +164,8 @@ export const {
     useApprovePendingGroupItemMutation,
     useGetVideoQuery,
     useGetAllVideosQuery,
+    useLazyGetAllVideosQuery,
+    useLazyGetMoreVideosQuery,
     useCreateArticleMutation,
     useGetAllArticlesQuery,
     useGetArticleQuery,

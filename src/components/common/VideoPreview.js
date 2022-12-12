@@ -10,7 +10,7 @@ const VideoPreview = (props) => {
         <p style={{cursor:'default',textShadow:'0px 0px 5px rgba(0,0,0,1)',alignSelf:'flex-end',marginTop:'auto',marginBottom:10,marginRight:10,color:'white',fontWeight:'800',fontFamily:'Helvetica',fontSize:18}}>{props.type}</p>
 
         </div>
-        <p style={{maxWidth:'80%'}}>{props?.title?.slice(0,70)}{ props?.title?.length >= 70 && '...'}</p>
+        <p style={{maxWidth:'80%',color:'rgba(0,0,0,.75)'}}>{props?.title?.slice(0,70)}{ props?.title?.length >= 70 && '...'}</p>
         </div>
     )
 }
