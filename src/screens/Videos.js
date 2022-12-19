@@ -74,7 +74,9 @@ const Videos = () => {
     return(
             <Catalog
             headerComponent = {
-                <Banner src='https://t4.ftcdn.net/jpg/04/12/28/57/360_F_412285721_90ZrZh1OmVtBRlZNUanHxebY242e6qo6.jpg'/>
+                <Banner src={require('../assets/images/videos-header.jpg')}>
+                    <h1 style={{fontFamily:'Gruppo',fontSize:64,alignSelf:'flex-start',marginTop:'auto',marginLeft:20,color:'rgba(255,255,255,.9)',textShadow:'0px 0px 10px rgba(0,0,0,.25)',marginBottom:20,paddingBottom:0}}>VIDEOS</h1>
+                </Banner>
             }
             onEndReached={handleScrollBottom}
             renderData={ cachedCategories.length ? [...getCategoryArray(data), ...cachedCategories] : getCategoryArray(data)}

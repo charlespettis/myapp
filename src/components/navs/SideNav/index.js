@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Screen from './Screen';
 import LogOutButton from '../../common/LogOutButton';
@@ -16,7 +16,7 @@ const SideNav = props => {
                         }
                     </ul>
                 </nav>
-
+                <Link to='/billing'>Billing</Link>
                 <LogOutButton/>
             </Sidebar>
 

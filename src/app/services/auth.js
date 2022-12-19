@@ -149,6 +149,20 @@ export const api = createApi({
                 method: "GET",
                 params: {search: search}
             })
+        }),
+        createCheckoutSession: builder.mutation({
+            query: data => ({
+                url:'create-checkout-session',
+                method: 'POST',
+                body: data
+            })
+        }),
+        orderSuccess: builder.query({
+            query: data => ({
+                url: 'order/success',
+                method: 'GET',
+                params: data
+            })
         })
     })
 });
@@ -180,6 +194,8 @@ export const {
     useCreateCategoryMutation,
     useGetSubscribedGroupsCategoriesQuery,
     useDeleteCategoryMutation,
-    useLazySearchGroupsQuery
+    useLazySearchGroupsQuery,
+    useCreateCheckoutSessionMutation,
+    useOrderSuccessQuery
 
 } = api;

@@ -14,6 +14,7 @@ import ViewCourse from '../screens/ViewCourse';
 import Search from '../screens/Search';
 import CreateRoadmap from '../screens/CreateRoadmap';
 import CreateGroup from '../screens/CreateGroup';
+import Billing from '../screens/Billing';
 
 const Home = () => {
     return(
@@ -108,8 +109,19 @@ const Home = () => {
         element={<CreateGroup/>}
         />
 
+        <SideNav.Screen
+        path='/billing'
+        element={<Billing/>}
+        />
+
     </SideNav>
     )
+}
+
+const OrderSuccess = () => {
+  return(
+    <p>asd</p>
+  )
 }
 
 

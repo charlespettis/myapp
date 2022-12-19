@@ -2,21 +2,21 @@ import './App.css';
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
+  useParams,
+  useLocation
 } from "react-router-dom";
 import Watch from './screens/Watch';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Landing from './screens/Landing';
 import Register from './screens/Register';
 import Login from './screens/Login'
 import Home from './routes/Home';
-import { useAuthorizeQuery } from './app/services/auth';
-import { setCredentials } from './app/reducers/authSlice';
+import OrderSuccess from './screens/OrderSuccess';
 
 function App() {
   const user = useSelector(state => state.auth.user);
-  const {data, isLoading, isError } = useAuthorizeQuery();
-  console.log('%c Oh my heavens! ', 'background: #222; color: #bada55');
+  
   return (
     <BrowserRouter>
       {
@@ -31,11 +31,10 @@ function App() {
           <Route path="/register" element={<Register/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="*" exact={true} element={<Login />} />
-
+          <Route path="/order/success" element={<OrderSuccess />}/>
         </Routes>
       }
     </BrowserRouter>
   );
 }
-
 export default App;
