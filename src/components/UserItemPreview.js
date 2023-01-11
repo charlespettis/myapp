@@ -32,10 +32,13 @@ const UserItemPreview = props => {
                     {props.status.toUpperCase()}
                 </UserItemPreviewStatusText>
 
+                { props.edit &&
                 <Link to={`/edit/group/${props.id}`}>
                     <Icon name='gear' size={22} style={{marginRight:10}}/>    
                 </Link>
-                <Icon name='trash' color='red' size={22} />    
+                }
+
+                <Icon onClick={props.onDelete} name='trash' color='red' size={22} />    
 
             </UserItemPreviewDescription>
 

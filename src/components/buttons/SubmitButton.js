@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const SubmitButton = props => {
 
     return(
-        <Button onClick={props.onClick}>
+        <Button onClick={props.onClick} style={{...props.style}}>
             {props.children}
         </Button>
 
@@ -22,7 +22,6 @@ const Button = styled.button`
     border:none;
     color:white;
     font-family: 'Verdana';
-    margin-bottom:20px;
 `
 
 export default SubmitButton;

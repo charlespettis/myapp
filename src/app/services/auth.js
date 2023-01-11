@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
-    refetchOnMountOrArgChange: false,
+    refetchOnMountOrArgChange: true,
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:8080/api/',
         credentials:'include'
@@ -43,9 +43,9 @@ export const api = createApi({
         getPendingGroupItems: builder.query({
             query: id => ({url: `getPendingGroupItems`,method:'GET',params:{id:id}})
         }),
-        approvePendingGroupItem: builder.mutation({
+        managePendingGroupItem: builder.mutation({
             query: data => ({
-                url: 'approvePendingGroupItem',
+                url: 'managePendingGroupItem',
                 method: 'PATCH',
                 body: data  
             })
@@ -53,18 +53,18 @@ export const api = createApi({
         getVideo: builder.query({
             query: id => ({url: 'getVideo', method:'GET',params:{id:id}}),
         }),
-        getAllVideos: builder.query({
+        getCategoriesByType: builder.query({
             query: data => ({
-                url: 'getAllVideos',
+                url: 'getCategoriesByType',
                 method:'GET',
                 params:{
                     ...data
                 }
             })
         }),
-        getMoreVideos: builder.query({
+        getItemsByCategory: builder.query({
             query: data => ({
-                url: 'getMoreVideos',
+                url: 'getItemsByCategory',
                 method: "GET",
                 params: {
                     ...data
@@ -163,6 +163,19 @@ export const api = createApi({
                 method: 'GET',
                 params: data
             })
+        }),
+        customerPortal: builder.query({
+            query: () => ({
+                url: 'customer-portal',
+                method: 'GET'
+            })
+        }),
+        deleteUserItem: builder.mutation({
+            query: data => ({
+                url: 'deleteUserItem',
+                method: 'DELETE',
+                body: data
+            })
         })
     })
 });
@@ -175,11 +188,11 @@ export const {
     useGetUserDetailsQuery,
     useCreateVideoMutation,
     useGetPendingGroupItemsQuery,
-    useApprovePendingGroupItemMutation,
+    useManagePendingGroupItemMutation,
     useGetVideoQuery,
-    useGetAllVideosQuery,
-    useLazyGetAllVideosQuery,
-    useLazyGetMoreVideosQuery,
+    useGetCategoriesByTypeQuery,
+    useLazyGetCategoriesByTypeQuery,
+    useLazyGetItemsByCategoryQuery,
     useCreateArticleMutation,
     useGetAllArticlesQuery,
     useGetArticleQuery,
@@ -196,6 +209,8 @@ export const {
     useDeleteCategoryMutation,
     useLazySearchGroupsQuery,
     useCreateCheckoutSessionMutation,
-    useOrderSuccessQuery
+    useOrderSuccessQuery,
+    useCustomerPortalQuery,
+    useDeleteUserItemMutation
 
 } = api;

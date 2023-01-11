@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useGetCourseQuery } from '../app/services/auth';
 import VideoPreview from '../components/common/VideoPreview';
 
@@ -9,20 +9,39 @@ const ViewCourse = () => {
     console.log(data);
 
     return(
-        <>
-        <div style={{display:'flex',flexDirection:'row',alignItems:'flex-start',width:'100%',flexWrap:'wrap',rowGap:50,overflowY:'scroll'}}>
+        <div style={{padding:15}}>
+            <div style={{display:'grid',gridTemplateRows:'repeat(autofill,minmax(100px,1fr))',gridTemplateColumns:'repeat(auto-fill, minmax(300px,1fr) )',rowGap:100,width:'100%',marginTop:20}}>
                 {
                     data &&
                     [...data.Article_Courses, ...data.Video_Courses].sort((a,b) => {return a.order - b.order}).map((e) => {
-                            return(
-                                    <VideoPreview title={e.title} thumbnail={e.thumbnail} icon={e.icon}/>       
-                            )
+                        let item = {title: '', thumbnail: '', icon: '', link:''};
+                        if(new Object(e).hasOwnProperty('article')) {
+                            item = {
+                                ...e.article,
+                                link: `/view/article/${e.article.id}`,
+                                type: 'article'
+                            }
+                        }
+                        if(new Object(e).hasOwnProperty('video')) {
+                            item = {
+                                ...e.video,
+                                link: `/view/article/${e.article.id}`,
+                                type: 'video'
+                            }
+
+                        };
+
+                        return(
+                            <Link to={item.link}>
+                                <VideoPreview type={item.type} title={item.title} thumbnail={item.thumbnail} icon={item.icon}/> 
+                            </Link>      
+                        )
                     })
                 }
 
             </div>
 
-        </>
+        </div>
     )
 }
 

@@ -1,34 +1,43 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useGetAllCoursesQuery } from '../app/services/auth';
+import { useGetCategoriesByTypeQuery, useLazyGetCategoriesByTypeQuery, useLazyGetItemsByCategoryQuery } from '../app/services/auth';
 import Carousel from '../components/Carousel';
-import Divider from '../components/common/Divider';
+import Banner from '../components/common/Banner';
 import VideoPreview from '../components/common/VideoPreview';
+import Catalog from '../components/Catalog';
 
 const Courses = () => {
-    const {data, isLoading} = useGetAllCoursesQuery();
+    const {data, isLoading} = useGetCategoriesByTypeQuery({type:'course'});
+    const [refetch] = useLazyGetCategoriesByTypeQuery(); 
+    const [trigger, result, lastPromiseInfo] = useLazyGetItemsByCategoryQuery();
+
+    const renderItem = category => {
+        return(
+            <Carousel 
+            onEndReached={page => trigger({id: category.id, offset: page * 15, type: 'course'})} 
+            title={category.title} 
+            renderData={category.courses}
+            renderItem={item => {
+                return(
+                <Link to={`/view/course/${item.id}`}>
+                    <VideoPreview icon={item.icon} thumbnail={item.thumbnail} title={item.title} />
+                </Link>
+                )
+            }} />
+        )
+    }
+
     return(
-        <div style={{display:'flex',flexDirection:'column'}}>
-            {
-                data?.groups.map(group => {
-                    return group.categories.map(category => {
-                        return(
-                            <>
-                            <Carousel title={category.title} renderData={category.courses} renderItem={item => {
-                                return(
-                                <Link to={`/view/course/${item.id}`}>
-                                    <VideoPreview thumbnail={item.thumbnail} title={item.title} />
-                                </Link>
-                                )
-                            }} />
-                            <Divider/>
-                            </>
-                        )
-                    })
-                })
+            <Catalog
+            headerComponent = {
+                <Banner src={require('../assets/images/videos-header.jpg')}>
+                    <Banner.BottomLeftHeader>Courses</Banner.BottomLeftHeader>
+                </Banner>
             }
-            
-        </div>
+            onEndReached={page => refetch({offset: page * 3, type: 'course'})}
+            renderData={data}
+            renderItem={renderItem}
+            />
     )
 }
 

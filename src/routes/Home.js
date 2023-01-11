@@ -15,12 +15,20 @@ import Search from '../screens/Search';
 import CreateRoadmap from '../screens/CreateRoadmap';
 import CreateGroup from '../screens/CreateGroup';
 import Billing from '../screens/Billing';
+import Logo from '../components/common/Logo';
+import Roadmaps from '../screens/Roadmaps';
 
 const Home = () => {
     return(
         <SideNav
         headerComponent={<Logo/>}
         >
+
+        <SideNav.Screen
+        path='*'
+        element={<Videos/>}
+        />
+
 
         <SideNav.Screen
         icon='video'
@@ -43,12 +51,13 @@ const Home = () => {
         element={<Courses/>}
         />
 
-        <SideNav.Screen
+{/* {        <SideNav.Screen
         icon='map'
         label='Roadmaps'
         path='/roadmaps'
-        element={<Courses/>}
-        />
+        element={<Roadmaps/>}
+        /> */
+}
 
         <SideNav.Screen
         icon='group'
@@ -115,28 +124,7 @@ const Home = () => {
         />
 
     </SideNav>
-    )
-}
-
-const OrderSuccess = () => {
-  return(
-    <p>asd</p>
   )
-}
-
-
-const Logo = () => {
-    return(
-      <p style={{alignSelf:'center',textAlign:'center',fontSize:22,marginTop:50,marginBottom:75,pointerEvents:'none'}}>
-        <span style={{color:'orange'}}>
-          Skill
-        </span>
-  
-        <span style={{color:'white'}}>
-        Center
-        </span>
-      </p>
-    )
 }
 
 export default Home;

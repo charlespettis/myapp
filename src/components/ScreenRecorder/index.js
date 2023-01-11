@@ -81,7 +81,6 @@ const ScreenRecorder = props => {
 
     const stopRecording = () => {
         let final = finalRef.current;
-
         final.srcObject.getTracks().forEach(track => track.stop());
         setRecording(false)
         setIsPaused(false);
@@ -102,7 +101,6 @@ const ScreenRecorder = props => {
         setRecordingPath(null);
         props.onChange(null);
     }
-
     
     return(
         <>

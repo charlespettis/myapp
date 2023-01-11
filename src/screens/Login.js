@@ -4,6 +4,9 @@ import { useLoginMutation } from '../app/services/auth';
 import { setCredentials } from '../app/reducers/authSlice';
 import {useDispatch} from 'react-redux';
 import {toast} from 'react-toastify';
+import Banner from '../components/common/Banner';
+import { FormContainer, FormHeaderText, FormInput, FormInputGroup } from '../components/Form';
+import SubmitButton from '../components/buttons/SubmitButton';
 
 const Login = () => {
 
@@ -31,12 +34,22 @@ const Login = () => {
 
 
     return(
-        <>
-        <p>Login</p>
-        <input onChange={e => setCreds({...creds, login: e.currentTarget.value})} type='email' placeholder='Email or Username'/>
-        <input onChange={e => setCreds({...creds, password: e.currentTarget.value})} type='password' placeholder='Password'/>
-        <button onClick={handleLogin}>GO</button>
-        </>
+        <Banner src={require('../assets/images/lp-bg.jpg')} style={{minHeight:'100vh'}}>
+        <FormContainer>
+            <FormHeaderText>Welcome Back!</FormHeaderText>
+            <FormInputGroup>
+                    Email or Username
+                    <FormInput value={creds.login} onChange={e => setCreds({...creds, login: e.currentTarget.value})}  type={'text'} />
+            </FormInputGroup>
+            <FormInputGroup>
+                    Password
+                    <FormInput onChange={e => setCreds({...creds, password: e.currentTarget.value})} type='password'/>
+            </FormInputGroup>
+
+            <SubmitButton style={{width:'100%',marginTop:0,}} onClick={handleLogin}>Continue</SubmitButton>
+
+            </FormContainer>
+        </Banner>
     )
 }
 

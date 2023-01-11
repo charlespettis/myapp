@@ -5,6 +5,8 @@ import Icon from '../common/Icon';
 const Carousel = props => {
     const [hover, setHover] = React.useState(false);
     const carouselRef = React.useRef(null);
+    const [loadedData, setLoadedData] = React.useState([]);
+    const [page, setPage] = React.useState(1);
 
     const handleClickRightArrow = () => {
         const carousel = carouselRef.current;
@@ -16,16 +18,33 @@ const Carousel = props => {
         if( endReached ) {
             const maxedOutVideos = props.renderData.length % 15 !== 0;
             
-            if(!maxedOutVideos){
-                props.onEndReached();
+            if(!maxedOutVideos && props.onEndReached){
+                handleEndReached();
             }
         }
+
+    }
+
+    const handleEndReached = async () => {
+        const result = await props.onEndReached(page);
+
+
+        setLoadedData(prevState => {
+            return([
+                ...prevState,
+                ...result.data.videos
+            ])
+        })
+
+        setPage(page + 1);
 
     }
 
     const handleLeftClickArrow = () => {
             carouselRef.current.scrollTo({top: 0, left:carouselRef.current.scrollLeft - carouselRef.current.clientWidth + 28, behavior:'smooth'})
     }
+
+    const data = loadedData.length ? [...props.renderData, ...loadedData ] : [...props.renderData];
     
     return(
         <section onMouseEnter={()=>{setHover(true)}} onMouseLeave={()=>{setHover(false)}} style={{position:'relative'}} >
@@ -33,7 +52,7 @@ const Carousel = props => {
 
             <CarouselItemsContainer className='noscroll' ref={carouselRef}>
             {
-                props.renderData.map(e => {
+                data.map(e => {
                     return(
                         props.renderItem(e)
                     )

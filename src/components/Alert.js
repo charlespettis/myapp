@@ -42,7 +42,7 @@ export const AlertProvider = props => {
                             <p>{alert?.title}</p>
                             <Icon onClick={()=>setAlert(null)} name='close' size={16}/>
                         </div>
-                        <p style={{padding:10}}>
+                        <p style={{padding:10,maxWidth:'75%'}}>
                             {alert?.message}
                         </p>
                         <div style={{display:'flex',flexDirection:'row',alignItems:'center',alignSelf:'flex-end',padding:10}}>
@@ -64,8 +64,8 @@ export const AlertProvider = props => {
 
 const ConfirmButton = styled.button`
     padding:5px 15px;
-    color:white;
-    background-color: blue;
+    color:blue;
+    background-color: transparent;
     border:none;
     display:flex;
     flex-direction: column;
@@ -77,8 +77,8 @@ const ConfirmButton = styled.button`
 const CancelButton = styled.button`
     padding:5px 15px;
     color:black;
-    background-color: transparent;
     border:none;
+    background-color: transparent;
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -89,9 +89,9 @@ const CancelButton = styled.button`
 
 const DeleteButton = styled.button`
     padding:5px 15px;
-    color:white;
-    background-color: red;
+    color:red;
     display:flex;
+    background-color: transparent;
     border:none;
     flex-direction: column;
     align-items: center;

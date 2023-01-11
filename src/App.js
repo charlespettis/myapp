@@ -27,10 +27,10 @@ function App() {
         </Routes>
         :
         <Routes>
-          <Route path="/" element={<Landing />}/>
-          <Route path="/register" element={<Register/>} />
-          <Route path="/login" element={<Login/>} />
           <Route path="*" exact={true} element={<Login />} />
+          <Route path="/" element={<Landing />}/>
+          <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Register/>} />
           <Route path="/order/success" element={<OrderSuccess />}/>
         </Routes>
       }

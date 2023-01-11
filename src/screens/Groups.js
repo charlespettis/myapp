@@ -36,7 +36,7 @@ const Groups = () => {
 
     return(
         <div style={{overflowY:'scroll'}}>
-        <Banner src='https://t4.ftcdn.net/jpg/04/12/28/57/360_F_412285721_90ZrZh1OmVtBRlZNUanHxebY242e6qo6.jpg'>
+        <Banner style={{width:'100%',backgroundColor:'red'}} src='https://t4.ftcdn.net/jpg/04/12/28/57/360_F_412285721_90ZrZh1OmVtBRlZNUanHxebY242e6qo6.jpg'>
             <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
                 <p style={{color:'white',marginBottom:10,fontWeight:'600',fontSize:26}}>Find your people on SkillCenter</p>
                 <p style={{color:'white',marginTop:0,marginBottom:10,fontSize:22}}>Find new communities for your interest on SureLearn.</p>

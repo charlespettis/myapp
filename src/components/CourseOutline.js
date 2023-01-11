@@ -11,11 +11,11 @@ const CourseOutline = props => {
     const state = useLocation();
     const stepsResp = state.state?.steps;
     const [steps, setSteps] = React.useState(stepsResp?.length ? stepsResp : []);
-    props.onChange(steps);
+    
     const addCell = () => {
         setVisible(!visible)
     }
-    console.log(props.roadmap);
+
     const generateOutline = () => {
         if(!steps.length) return(<EmptyCell onClick={addCell}/>)
         return steps.map((e,i) => {
@@ -43,7 +43,7 @@ const CourseOutline = props => {
             {
             visible &&
             <Modal setVisible={setVisible} visible={visible}>
-                    <GroupButton setVisible={setVisible} roadmap={props.roadmap} steps={steps}/>
+                    <GroupButton setVisible={setVisible} steps={steps}/>
              </Modal>
             }
 
@@ -56,7 +56,6 @@ const GroupButton = props => {
     const [hover, setHover] = React.useState('');
     const [type, setType] = React.useState('');
     const navigate = useNavigate();
-
     return(
         <div style={{borderRadius:5,backgroundColor:'white',boxShadow:'0px 0px 5px 0px rgba(0,0,0,0.25)',display:'flex',flexDirection:'row',alignItems:'center'}}>
             {
@@ -89,14 +88,6 @@ const GroupButton = props => {
                 <Icon name='article' size={26} style={{marginBottom:10}}/>
                 <p style={{margin:0,padding:0,fontSize:20}}>Article</p>
             </div>
-            {props.roadmap && 
-            <div onClick={()=>{
-                setType('course')
-            }} onMouseEnter={()=>setHover('course')} onMouseLeave={()=>setHover('')} style={{backgroundColor:hover === 'course' ? '#f1f1f1' : 'transparent',display:'flex',flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center',padding:20,cursor:'pointer'}}>
-                <Icon name='book' size={26} style={{marginBottom:10}}/>
-                <p style={{margin:0,padding:0,fontSize:20}}>Course</p>
-            </div>}
-
 
             </>
             }

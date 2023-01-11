@@ -8,8 +8,6 @@ const CreateCourse = () => {
     const [steps, setSteps] = React.useState([]);
     const [create, {isLoading}] = useCreateCourseMutation()
     const state = useLocation();
-    const roadmapSteps = state.state?.steps;
-    const navigate = useNavigate()
 
 
     const handleSubmit = async data => {
@@ -32,20 +30,12 @@ const CreateCourse = () => {
 
         const result = await create(body);
 
-        if(steps){
-            const newObj = Object.assign({type: 'course'}, result.data.dataValues);
-            roadmapSteps.push(newObj);
-            navigate('/create/roadmap', { state:{ steps:steps}})
-
-        }
-
 
     }
 
     return(
     <Composer
     onSubmit={handleSubmit}
-    noPlacement={roadmapSteps}
     component={<CourseOutline
     onChange={e=>{setSteps(e)}}
     />}
