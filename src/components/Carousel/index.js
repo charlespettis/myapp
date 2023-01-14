@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from '../common/Icon';
 
@@ -48,7 +49,15 @@ const Carousel = props => {
     
     return(
         <section onMouseEnter={()=>{setHover(true)}} onMouseLeave={()=>{setHover(false)}} style={{position:'relative'}} >
-            <CarouselTitle>{props.title}</CarouselTitle>
+            <CarouselTitleRow>
+                <CarouselTitle>{props.title}</CarouselTitle>
+                {
+                    (props.seeMore && hover) &&
+                    <CarouselLink to={props.seeMore}>
+                        See More
+                    </CarouselLink>
+                }
+            </CarouselTitleRow>
 
             <CarouselItemsContainer className='noscroll' ref={carouselRef}>
             {
@@ -60,10 +69,17 @@ const Carousel = props => {
             }
             {
                 hover &&
+                
                 <CarouselControlsContainer>
+                    { page !== 1 ?
+                    
                     <CarouselControlsButton onClick={handleLeftClickArrow}>
                         <Icon name="arrow-left" color='white' size={32}/>
                     </CarouselControlsButton>
+                    :
+                    <span/>
+                    
+                    }
                     
 
                     <CarouselControlsButton visible={true} onClick={handleClickRightArrow}>
@@ -82,14 +98,25 @@ const CarouselItemsContainer = styled.div`
     flex-direction: row;
     align-items: flex-start;
     overflow-x: hidden;
-    padding-left: 50px;
+    padding-left: 25px;
     gap:5px;
 `
 
 const CarouselTitle = styled.p`
     font-size: 22px;
     font-weight: 500;
-    margin-left:25px;
+    text-transform: uppercase;
+    color:rgba(0,0,0,.75);
+    margin: 0px;
+`
+
+const CarouselTitleRow = styled.div`
+    padding:0px 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    justify-content: space-between;
 `
 
 const CarouselControlsContainer = styled.div`
@@ -111,6 +138,13 @@ const CarouselControlsButton = styled.div`
     justify-content: center;
     align-items: center;
     pointer-events: all;
+`
+
+const CarouselLink = styled(Link)`
+    text-transform: uppercase;
+    color:rgba(0,55,200,0.7);
+    font-weight: 500;
+    cursor: pointer;
 `
 
 

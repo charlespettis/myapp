@@ -1,18 +1,16 @@
 import React from 'react'
 import Banner from '../components/common/Banner';
-import Icon from '../components/common/Icon';
 import Carousel from '../components/Carousel';
-import Divider from '../components/common/Divider';
 import VideoPreview from '../components/common/VideoPreview';
-import { useGetAllGroupsQuery, useJoinGroupMutation, useLazySearchGroupsQuery } from '../app/services/auth';
+import { useGetAllGroupsQuery, useGetSubscribedUserGroupsQuery, useJoinGroupMutation, useLazySearchGroupsQuery } from '../app/services/auth';
 import Modal from '../components/common/Modal';
 import {toast} from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 
 const Groups = () => {
-    const {data, isLoading} = useGetAllGroupsQuery();
+    const data = useGetAllGroupsQuery().data;
+    const subscribedGroups = useGetSubscribedUserGroupsQuery()
     const [join] = useJoinGroupMutation();
-
+    console.log(subscribedGroups.data);
     const [modalVisible, setModalVisible] = React.useState(false);
     const [modalData, setModalData] = React.useState(null);
     const [search, setSearch] = React.useState('');
@@ -29,9 +27,20 @@ const Groups = () => {
     }
 
     const handleJoin = async id => {
-        const result = join(id);
-        toast.promise(result, {pending:'Joining group...', success:'Joined group!',error:'Failed to join group.'})
+        const result = await join(id);
+        if(result.data.success){
+            await subscribedGroups.refetch();
+        }
         setModalVisible(false);
+    }
+    
+    let isInGroup = false;;
+
+    if(modalData?.id && Array.isArray(subscribedGroups.data)){
+        const index = subscribedGroups.data.findIndex(e => e.groupId === modalData.id)
+        if(index > -1){
+            isInGroup = true
+        }
     }
 
     return(
@@ -41,19 +50,15 @@ const Groups = () => {
                 <p style={{color:'white',marginBottom:10,fontWeight:'600',fontSize:26}}>Find your people on SkillCenter</p>
                 <p style={{color:'white',marginTop:0,marginBottom:10,fontSize:22}}>Find new communities for your interest on SureLearn.</p>
                 
-                <div style={{display:'flex',flexDirection:'row',alignItems:'center',marginTop:10}}>
+                {/* <div style={{display:'flex',flexDirection:'row',alignItems:'center',marginTop:10}}>
                     <input onKeyDown={e => {if(e.code === 'Enter') handleSearch()}} onChange={e => setSearch(e.currentTarget.value)} type='text' style={{minWidth:400,minHeight:20}}/>
                     <Icon name='search' color='white' size={26} style={{marginLeft:10}}/>
-                </div>
+                </div> */}
             </div>
         </Banner>
-        <Divider/>
-        <div>
+        <div style={{paddingTop:25}}>
         {
-        result?.data ? 
-        <Carousel title="Search Results" renderData={/*data || []*/[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]} renderItem={item => <VideoPreview onClick={() => handleClick(item)} title={'The React Lovers Group 2020 for a Cause'} thumbnail={item.thumbnail}/>} />
-        :
-        <Carousel title="Latest Groups" renderData={/*data || []*/[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]} renderItem={item => <VideoPreview onClick={() => handleClick(item)} title={'The React Lovers Group 2020 for a Cause'} thumbnail={item.thumbnail}/>} />
+        <Carousel title="Latest Featured Groups" renderData={Array.isArray(data) ? data : []} renderItem={item => <VideoPreview title={item.title} onClick={() => handleClick(item)} thumbnail={item.thumbnail}/>} />
         }
         {modalVisible &&
         <Modal
@@ -64,7 +69,7 @@ const Groups = () => {
                 <div style={{float:'left',width:250,height:160,background:modalData.thumbnail,marginRight:10}}/>
                 <p style={{marginTop:0,marginBottom:10,fontSize:26}}>{modalData.title}</p>
                 <p style={{marginTop:0,lineHeight:2}}>{modalData.description} </p>
-            <button onClick={() => handleJoin(modalData.id)} style={{width:'20%',height:45,marginLeft:'80%',backgroundColor:'transparent',border:'none',fontSize:18,cursor:'pointer'}}>JOIN</button>
+            <button onClick={() => handleJoin(modalData.id)} style={{width:'20%',height:45,marginLeft:'80%',backgroundColor:'transparent',border:'none',fontSize:18,cursor:'pointer'}}>{isInGroup ? 'Leave' : 'Join'}</button>
             </div>
 
         </Modal>

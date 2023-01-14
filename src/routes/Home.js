@@ -17,6 +17,7 @@ import CreateGroup from '../screens/CreateGroup';
 import Billing from '../screens/Billing';
 import Logo from '../components/common/Logo';
 import Roadmaps from '../screens/Roadmaps';
+import Category from '../screens/Category';
 
 const Home = () => {
     return(
@@ -28,7 +29,6 @@ const Home = () => {
         path='*'
         element={<Videos/>}
         />
-
 
         <SideNav.Screen
         icon='video'
@@ -121,6 +121,11 @@ const Home = () => {
         <SideNav.Screen
         path='/billing'
         element={<Billing/>}
+        />
+
+        <SideNav.Screen
+        path={`/category/:id/:type`}
+        element={<Category/>}
         />
 
     </SideNav>

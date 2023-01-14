@@ -176,6 +176,12 @@ export const api = createApi({
                 method: 'DELETE',
                 body: data
             })
+        }),
+        getSubscribedUserGroups: builder.query({
+            query: () => ({
+                url: 'getSubscribedUserGroups',
+                method: 'GET'
+            })
         })
     })
 });
@@ -193,6 +199,7 @@ export const {
     useGetCategoriesByTypeQuery,
     useLazyGetCategoriesByTypeQuery,
     useLazyGetItemsByCategoryQuery,
+    useGetItemsByCategoryQuery,
     useCreateArticleMutation,
     useGetAllArticlesQuery,
     useGetArticleQuery,
@@ -211,6 +218,7 @@ export const {
     useCreateCheckoutSessionMutation,
     useOrderSuccessQuery,
     useCustomerPortalQuery,
-    useDeleteUserItemMutation
+    useDeleteUserItemMutation,
+    useGetSubscribedUserGroupsQuery
 
 } = api;

@@ -1,4 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Carousel from './Carousel';
+import VideoPreview from './common/VideoPreview';
 
 const Catalog = props => {
     const scrollRef = React.useRef();
@@ -40,11 +43,27 @@ const Catalog = props => {
 
     const data = cachedCategories.length ? [...getCategoryArray(props.renderData), ...cachedCategories] : getCategoryArray(props.renderData)
 
+    const hasRecents = new Object(props.renderData).hasOwnProperty('recents') && props.renderData.recents.length
 
     return(
         <div onScroll={handleScroll} ref={scrollRef} style={{display:'flex',flexDirection:'column',overflowY:'scroll',paddingBottom:50,gap:30}}>
             {
                 props.headerComponent
+            }
+            {
+                hasRecents ? 
+                <Carousel
+                renderData={props.renderData.recents}
+                title='Recently Viewed'
+                renderItem={itemraw => {
+                    const item = itemraw?.course || itemraw?.article || itemraw?.video
+                    return(
+                    <Link to={`/view/article/${item.id}`}>
+                        <VideoPreview icon={item.icon} thumbnail={item.thumbnail} title={item.title} />
+                    </Link>
+                    )
+                }}
+                /> : null
             }
             {
                 data.map(category => {

@@ -10,7 +10,7 @@ const ViewCourse = () => {
 
     return(
         <div style={{padding:15}}>
-            <div style={{display:'grid',gridTemplateRows:'repeat(autofill,minmax(100px,1fr))',gridTemplateColumns:'repeat(auto-fill, minmax(300px,1fr) )',rowGap:100,width:'100%',marginTop:20}}>
+            <div style={{display:'grid',gridTemplateRows:'repeat(autofill,minmax(100px,1fr))',gridTemplateColumns:'repeat(auto-fill, minmax(250px,1fr) )',rowGap:100,width:'100%',marginTop:20}}>
                 {
                     data &&
                     [...data.Article_Courses, ...data.Video_Courses].sort((a,b) => {return a.order - b.order}).map((e) => {

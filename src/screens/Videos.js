@@ -15,7 +15,8 @@ const Videos = () => {
         return(
             <Carousel 
             onEndReached={page => trigger({id: category.id, offset: page * 15, type: 'video'})} 
-            title={category.title} 
+            title={category.title}
+            seeMore={`/category?id=${category.id}&type=video`}
             renderData={category.videos}
             renderItem={item => {
                 return(
