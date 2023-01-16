@@ -16,7 +16,7 @@ const Articles = () => {
             <Carousel 
             onEndReached={page => trigger({id: category.id, offset: page * 15, type: 'article'})} 
             title={category.title} 
-            seeMore={`/category?id=${category.id}&type=video`}
+            seeMore={`/category/${category.id}/article`}
             renderData={category.articles}
             renderItem={item => {
                 return(
@@ -31,7 +31,7 @@ const Articles = () => {
     return(
             <Catalog
             headerComponent = {
-                <Banner src={require('../assets/images/videos-header.jpg')}>
+                <Banner src={require('../assets/images/articles-header.jpg')}>
                     <Banner.BottomLeftHeader>Articles</Banner.BottomLeftHeader>
                 </Banner>
             }

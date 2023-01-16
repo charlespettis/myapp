@@ -31,7 +31,7 @@ const Courses = () => {
     return(
             <Catalog
             headerComponent = {
-                <Banner src={require('../assets/images/videos-header.jpg')}>
+                <Banner src={require('../assets/images/courses-header.jpg')}>
                     <Banner.BottomLeftHeader>Courses</Banner.BottomLeftHeader>
                 </Banner>
             }

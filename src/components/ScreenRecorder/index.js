@@ -21,7 +21,7 @@ const ScreenRecorder = props => {
                 width: { ideal: 4096 },
                 height: { ideal: 2160 } 
             },            
-            audio: true
+            audio: false
         })
 
         let audio = await navigator.mediaDevices.getUserMedia({audio: true, video: false});

@@ -5,7 +5,7 @@ import {HiOutlineMap,} from 'react-icons/hi';
 import {MdOutlineForum, MdReplay10, MdForward10, MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdAccessibility, MdOutlineKeyboardArrowLeft, MdVideocam, MdLockClock } from 'react-icons/md';
 import {RiVideoAddLine, RiAngularjsLine} from 'react-icons/ri';
 import {BsPeople, BsFillPlayFill, BsFillPauseFill, BsVolumeMute, BsVolumeOff, BsVolumeDown, BsVolumeUp, BsPlus, BsFlag} from 'react-icons/bs';
-import {AiFillWindows, AiOutlineArrowLeft, AiOutlineFileText, AiFillApple, AiFillHtml5, AiFillAndroid, AiOutlineConsoleSql, AiFillFileText} from 'react-icons/ai'
+import {AiFillWindows, AiOutlineArrowLeft, AiOutlineFileText, AiFillApple, AiFillHtml5, AiFillAndroid, AiOutlineConsoleSql, AiFillFileText, AiOutlineCreditCard} from 'react-icons/ai'
 import {FaReact, FaPython, FaJava, FaVuejs, FaDrupal, FaJoomla, FaLaravel, FaSymfony, FaUnity, FaGamepad, FaAws, FaEdit, FaRegEdit, FaTrashAlt, FaTrash, FaRegTrashAlt, FaCheck, FaUsers} from 'react-icons/fa';
 import {SiXcode, SiTypescript, SiSvelte, SiNextdotjs, SiTensorflow, SiDjango, SiFlask,SiPhp,SiAdobecreativecloud, SiBlender,SiCsharp,SiBlazor,SiAutodesk,SiUnrealengine, SiSwift, SiWebassembly, SiRust, SiDotnet, SiSolidity, SiRedux,SiLua,SiGo, SiGodotengine, SiC, SiCplusplus, SiDiscord, SiRuby, SiRubyonrails, SiMongodb, SiPostgresql, SiJavascript, SiFirebase, SiCakephp, SiAmazonaws, SiAppstore, SiAmazons3, } from 'react-icons/si';
 import {DiCss3, DiSqllite} from 'react-icons/di';
@@ -117,7 +117,8 @@ const Icon = props => {
         'users': <FaUsers {...props}/>,
         'video-solid': <MdVideocam {...props}/>,
         'article-solid': <AiFillFileText {...props}/>,
-        'lock': <MdLockClock {...props}/>
+        'lock': <MdLockClock {...props}/>,
+        'card':<AiOutlineCreditCard {...props}/>
         
     }
 

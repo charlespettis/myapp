@@ -13,14 +13,18 @@ import Register from './screens/Register';
 import Login from './screens/Login'
 import Home from './routes/Home';
 import OrderSuccess from './screens/OrderSuccess';
+import { useAuthorizeQuery } from './app/services/auth';
+import Logo from './components/common/Logo';
 
 function App() {
   const user = useSelector(state => state.auth.user);
-  
+  const {data,isLoading} = useAuthorizeQuery(user);
+  if(isLoading) return <SplashScreen />
+
   return (
     <BrowserRouter>
       {
-        user ? 
+        data?.success ? 
         <Routes>
           <Route path="*" element={<Home />} />
           <Route path="/watch/:id" element={<Watch />}/>
@@ -37,4 +41,13 @@ function App() {
     </BrowserRouter>
   );
 }
+
+const SplashScreen = () => {
+  return(
+    <div style={{height:'100vh',width:'100vw',backgroundColor:'white',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+      <Logo type='light' size={42}/>
+    </div>
+    )
+}
+
 export default App;

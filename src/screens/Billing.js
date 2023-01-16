@@ -5,8 +5,9 @@ import { useCustomerPortalQuery } from '../app/services/auth';
 const Billing = () => {
     const {data, isLoading, isError} = useCustomerPortalQuery();
 
-    if(data && data.url){
+    if(new Object(data).hasOwnProperty('url')){
         window.location.href = data.url
+        return <StripeLoading/>;
     }
 
     if(new Object(data).hasOwnProperty('id')){ 
@@ -25,7 +26,14 @@ const Billing = () => {
         )
     }
 
-    return null;
+}
+
+const StripeLoading = () => {
+    <div style={{height:'100%',width:'100%',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+        <img src={require('../assets/images/Spin-1s-200px.gif')} width={50} height={50}/>
+        <img src={require('../assets/images/Stripe-Logo-2009.png')} width={200} height={'auto'}/>
+
+    </div>
 }
 
 const BillingContainer = styled.div`

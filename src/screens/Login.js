@@ -23,7 +23,7 @@ const Login = () => {
         try{
             const result = await login(creds)
             if(result.data.success){
-                dispatch(setCredentials({payload: true}))
+                dispatch(setCredentials(Date.now()))
                 navigate('/');
             }
         } catch(err){

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Icon from '../components/common/Icon';
 import VideoPreview from '../components/common/VideoPreview';
 import Modal from '../components/common/Modal';
@@ -19,9 +19,13 @@ const CourseOutline = props => {
     const generateOutline = () => {
         if(!steps.length) return(<EmptyCell onClick={addCell}/>)
         return steps.map((e,i) => {
+            console.log(e);
+            const link = e?.type === 'article' ? `/view/article/${e.id}` : `/watch/${e.id}`
             return(
                 <>
+                    <Link to={link}>
                     <VideoPreview title={e.title} thumbnail={e.thumbnail} icon={e.icon}/>    
+                    </Link>
                     {
                         i + 1 === steps.length && <EmptyCell onClick={addCell} />
                     }

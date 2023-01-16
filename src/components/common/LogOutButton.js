@@ -11,10 +11,13 @@ const LogOutButton = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLogout = async () => {        
-        const result = await logout();
-        dispatch(setCredentials({payload:null}));
-        navigate('/')
+    const handleLogout = async () => {   
+        try{     
+            await logout();
+            dispatch(setCredentials(Date.now()));
+        } catch(err){
+            console.log(err);
+        }
     }
 
     return(
@@ -22,7 +25,7 @@ const LogOutButton = () => {
         onClick={handleLogout}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={()=> setHover(false)}
-        style={{marginTop: 'auto',display:'flex',flexDirection:'row',alignItems:'center',marginLeft:20,opacity: hover ? 1 : .7, cursor:'pointer'}}
+        style={{marginTop: 10,display:'flex',flexDirection:'row',alignItems:'center',marginLeft:20,opacity: hover ? 1 : .7, cursor:'pointer'}}
         >
             <Icon color='white' size={22} name='exit'/>
             <p style={{marginLeft:20,fontSize:16,color:'white'}}>Log Out</p>
