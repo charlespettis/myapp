@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import { useGetVideoQuery } from '../app/services/auth';
+import ContentLock from '../components/common/ContentLock';
 import VideoControls from '../components/VideoControls';
 
 const Watch = () => {
@@ -47,6 +48,7 @@ const Watch = () => {
         return () => window.removeEventListener('keydown', handlePause)
     },[])
 
+    if(isError) return <ContentLock />
 
     return(
         <main

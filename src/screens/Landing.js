@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Banner from '../components/common/Banner';
 import Logo from '../components/common/Logo';
+
 const Landing = () => {
+
+    if(window.innerWidth < 750) return <MobileSupport/>
+
     return(
     <>
         <Banner src={require('../assets/images/lp-bg.jpg')} style={{minHeight:'100vh'}}>
@@ -26,6 +30,17 @@ const Landing = () => {
             </div>
         </Banner>
     </>
+    )
+}
+
+const MobileSupport = () => {
+    return(
+        <div style={{width:'100%',height:'100%',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',paddingTop:25}}>
+            <Logo type='light'/>
+            <img src={require('../assets/images/undraw_Loading_re_5axr.png')} width={500} height={'auto'} style={{marginTop:25}}/>
+            <h3>Sorry!</h3>
+            <p style={{textAlign:'center',fontFamily:'helvetica',width:"80%",fontSize:22}}>We're  hard at work developing a SkillCenter mobile app for iOS and Android.  Unfortunately, until then, our site is only optimized for use on desktops and laptops. Stay tuned!</p>
+        </div>
     )
 }
 

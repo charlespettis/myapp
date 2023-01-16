@@ -5,51 +5,43 @@ import { icons, backgroundGradients, patterns } from './constansts';
 import { MultiSelect, MultiSelectItem } from './MultiSelect';
 
 const ThumbnailTool = props => {
-    const [selectedBackground, setSelectedBackground] = React.useState('');
-    const [selectedPattern, setSelectedPattern] = React.useState('');
-    const [selectedIcon, setSelectedIcon] = React.useState('');
+    const [data, setData] = React.useState({
+        icon: '',
+        background: '',
+        pattern: ''
+    })
+    
 
-    const thumbnailString = `${selectedPattern && selectedPattern}${(selectedPattern && selectedBackground) && ','}${selectedBackground && selectedBackground}`
+    let background = `${data.pattern},${data.background}`;
 
-    const selectIcon = (item) => {
-        props.onChange({
-            thumbnail: thumbnailString,
-            icon: item
-        });
-        setSelectedIcon(item);
-
-    }
-
-    const clearIcon = () => {
-        props.onChange({
-            thumbnail: thumbnailString,
-            icon: null
+    const handleChange = item => {
+        console.log(item);
+        const backgroundShorthand = Object.keys(backgroundGradients).find(key => backgroundGradients[key] === item.background) || data.background;
+        const patternShorthand = Object.keys(patterns).find(key => patterns[key] === item.pattern) || data.pattern;
+        let background = `${patternShorthand},${backgroundShorthand}`;
+        setData(prevState => {
+            return({
+                ...prevState,
+                background: backgroundShorthand,
+                pattern: patternShorthand,
+                icon: item?.icon ? item.icon : ''
+            })
         })
-        setSelectedIcon('');
+        props.onChange({icon: item.icon, thumbnail: background});   
     }
+
+    const selectIcon = (item) => handleChange({ ...data, icon: item}) 
+
+    const clearIcon = () => handleChange({ ...data, icon: '' })  
 
     const selectPattern = (item) => {
-        setSelectedPattern(item);
-        props.onChange({
-        icon: selectedIcon, 
-        thumbnail : `${item && item}${(item && selectedBackground) && ','}${selectedBackground && selectedBackground}`,
-        })
+        handleChange({...data, pattern: item});
     }
 
-    const clearPattern = () => {
-        setSelectedPattern('')
-        props.onChange({
-            thumbnail: `${selectedBackground && selectedBackground}`,
-            icon: selectedIcon
-        })
-    }
+    const clearPattern = () => handleChange({...data, pattern: ''})
 
     const selectBackground = (item) => {
-        setSelectedBackground(item);
-        props.onChange({
-            thumbnail : `${selectedPattern && selectedPattern}${(selectedPattern && item) && ','}${item && item}`,
-            icon: selectedIcon
-        })
+        handleChange({...data, background: item})
     }
 
     return(
@@ -58,17 +50,17 @@ const ThumbnailTool = props => {
             
             <div style={{display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
                 
-                <VideoPreview icon={selectedIcon} type='ROADMAP' thumbnail={`${selectedPattern && selectedPattern}${(selectedPattern && selectedBackground) && ','}${selectedBackground && selectedBackground}`}  />
+                <VideoPreview icon={data.icon} thumbnail={background}  />
 
                     <p style={{marginTop:20}}>Choose Background</p>
                     
                     <MultiSelect
-                    renderData={Object.values(backgroundGradients)}
+                    renderData={Object.keys(backgroundGradients)}
                     renderItem={item => {
                         return(
                             <MultiSelectItem
-                            selected={item === selectedBackground}
-                            value={item}
+                            selected={item === data.background}
+                            value={backgroundGradients[item]}
                             onClick={selectBackground}/>
                         )
                     }}
@@ -80,12 +72,12 @@ const ThumbnailTool = props => {
                     <MultiSelect
                     allowClear={true}
                     onClear={clearPattern}
-                    renderData={Object.values(patterns)}
+                    renderData={Object.keys(patterns)}
                     renderItem={item => {
                         return(
                             <MultiSelectItem
-                            selected={item === selectedPattern}
-                            value={item}
+                            selected={item === data.pattern}
+                            value={patterns[item]}
                             onClick={selectPattern}/>
                         )
                     }}
@@ -102,7 +94,7 @@ const ThumbnailTool = props => {
                             <MultiSelectItem
                             value={item}
                             onClick={selectIcon}>
-                             <Icon name={item} size={32} style={{cursor:'pointer',padding:7,borderRadius:5, color: selectedIcon === item ? 'blue' : 'black'}} />
+                             <Icon name={item} size={32} style={{cursor:'pointer',padding:7,borderRadius:5, color: data.icon === item ? 'blue' : 'black'}} />
 
                             </MultiSelectItem>
                         )

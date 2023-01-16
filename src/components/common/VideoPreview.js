@@ -1,19 +1,81 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components';
+import { parseThumbnail } from '../helpers';
 import Icon from './Icon';
 
 const VideoPreview = (props) => {
+    const thumbnail = parseThumbnail(props.thumbnail)
     return(
-        <div onClick={props.onClick} style={{cursor:'pointer'}}>
-            <div style={{display:'flex',justifyContent:'space-between',flexDirection:'column',width:'18em',height:'10em',background: props.thumbnail ? props.thumbnail : 'black',borderRadius:5}}>
-                <Icon name={props.icon} size={42} style={{filter:'drop-shadow(0px 0px 5px rgba(0,0,0,1)',color:'white',margin:10}}/>
-                <span>
-                    <p style={{textTransform:'uppercase',cursor:'default',textShadow:'0px 0px 5px rgba(0,0,0,1)',alignSelf:'flex-end',marginTop:'auto',marginBottom:10,marginRight:10,color:'white',fontWeight:'800',fontFamily:'Helvetica',fontSize:18}}>{props.type}</p>
-                    <p style={{marginTop:0,fontFamily:'Helvetica',fontWeight:600,marginBottom:0,borderBottomLeftRadius:5,borderBottomRightRadius:5,backgroundColor:'rgba(0,0,0,.0)',textShadow:'0px 0px 5px black',padding:10,fontSize:18,color:'white'}}>{props?.title?.slice(0,70)}{ props?.title?.length >= 70 && '...'}</p>
-                </span>
-            </div>
-        </div>
+        <ItemPreviewContainer background={thumbnail ? thumbnail : 'black'} onClick={props.onClick}>
+            
+                <ItemPreviewSection>
+                    <ItemPreviewIcon 
+                        name={props.icon}
+                        size={42}
+                    />
+                    <ItemPreviewIcon 
+                        name={`${props.type}-solid`}
+                        size={26}
+                    />
+
+                </ItemPreviewSection>
+
+                <ItemPreviewSection>
+
+                    <ItemPreviewText>{props.title}</ItemPreviewText>
+
+                </ItemPreviewSection>
+
+
+        </ItemPreviewContainer>
     )
 }
+
+const ItemPreviewContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    background: ${props => props.background};
+    width:18em;
+    height:10em;
+    border-radius:5px;
+    padding: 0px;
+    filter: grayscale(20%);
+
+`
+
+const ItemPreviewSection = styled.div`
+    display: flex;
+    flex:1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    
+`
+
+const ItemPreviewIcon = styled(Icon)`
+    filter:drop-shadow(0px 0px 5px rgba(0,0,0,1));
+    color:white;
+    margin:10px;
+`
+
+const ItemPreviewText = styled.p`
+    margin-top:0px;
+    font-family:'Helvetica';
+    font-weight:600;
+    margin-bottom:0px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+    background-color:rgba(0,0,0,.0);
+    text-shadow: 0px 0px 5px black;
+    padding: 10px;
+    font-size: 18px;
+    color: white;
+    align-self: flex-end;
+    line-height: 130%;
+`
+
 
 export default VideoPreview;

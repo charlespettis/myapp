@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Icon from './common/Icon';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { parseThumbnail } from './helpers';
 
 const UserItemPreview = props => {
 
@@ -12,12 +13,14 @@ const UserItemPreview = props => {
         approved: 'green'
     }
 
+    const thumbnail = parseThumbnail(props.thumbnail)
+
     return(
         <UserItemPreviewContainer>
 
             <UserItemPreviewRow>
                 <Link to={props.link}>
-                    <Thumbnail thumbnail={props.thumbnail} />
+                    <Thumbnail thumbnail={thumbnail} />
                 </Link>
 
                 <UserItemPreviewTitle>

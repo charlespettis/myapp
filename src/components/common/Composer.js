@@ -56,7 +56,8 @@ const Composer = props => {
                 </span>
                     
                 <ThumbnailTool
-                onChange={e => setValue({...value, ...e})}
+                onChange={e =>{
+                    setValue({...value, ...e})}}
                 />
             
             </ComposerSideBarContainer>

@@ -4,6 +4,7 @@ import { useManagePendingGroupItemMutation, useCreateCategoryMutation, useDelete
 import Accordion from '../components/Accordion';
 import Icon from '../components/common/Icon';
 import {toast} from 'react-toastify';
+import { parseThumbnail } from '../components/helpers';
 
 const EditGroup = () => {
     const {id} = useParams();
@@ -144,11 +145,13 @@ const EditGroup = () => {
 
 const ItemPreview = props => {
 
+    const thumbnail = parseThumbnail(props.thumbnail);
+
     return(
         <div style={{display:'flex', flexDirection:'row',alignItems:'center',marginTop:10,justifyContent:'space-between'}}>
 
             <div style={{display:'flex',flexDirection:'row'}}>
-            <div style={{width:150,height:75,background: props.thumbnail, borderRadius:5}} />
+            <div style={{width:150,height:75,background: thumbnail ? thumbnail : 'black', borderRadius:5}} />
 
             <div style={{display:'flex',flexDirection:'column',justifyContent:'space-evenly',marginLeft:10}}>
                 <p style={{marginBottom:0}}>{props.title}</p>

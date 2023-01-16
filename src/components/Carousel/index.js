@@ -22,6 +22,8 @@ const Carousel = props => {
             if(!maxedOutVideos && props.onEndReached){
                 handleEndReached();
             }
+            setPage(page + 1);
+
         }
 
     }
@@ -37,12 +39,12 @@ const Carousel = props => {
             ])
         })
 
-        setPage(page + 1);
 
     }
 
     const handleLeftClickArrow = () => {
             carouselRef.current.scrollTo({top: 0, left:carouselRef.current.scrollLeft - carouselRef.current.clientWidth + 28, behavior:'smooth'})
+            setPage(page - 1);
     }
 
     const data = loadedData.length ? [...props.renderData, ...loadedData ] : [...props.renderData];
@@ -71,7 +73,7 @@ const Carousel = props => {
                 hover &&
                 
                 <CarouselControlsContainer>
-                    { page !== 1 ?
+                    { page > 1 ?
                     
                     <CarouselControlsButton onClick={handleLeftClickArrow}>
                         <Icon name="arrow-left" color='white' size={32}/>

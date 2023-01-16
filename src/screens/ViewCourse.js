@@ -6,11 +6,16 @@ import VideoPreview from '../components/common/VideoPreview';
 const ViewCourse = () => {
     const {id} = useParams();
     const {data, isLoading, isError} = useGetCourseQuery(id);
-    console.log(data);
+    const date = new Object(data).hasOwnProperty('createdAt') ? new Date(data.createdAt).toLocaleDateString() : null
+    
 
     return(
         <div style={{padding:15}}>
-            <div style={{display:'grid',gridTemplateRows:'repeat(autofill,minmax(100px,1fr))',gridTemplateColumns:'repeat(auto-fill, minmax(250px,1fr) )',rowGap:100,width:'100%',marginTop:20}}>
+            {new Object(data).hasOwnProperty('title') && 
+                <p style={{fontSize:22}}>{data.title}</p>
+            }
+            <p>{date}</p>
+            <div style={{display:'grid',gridTemplateRows:'repeat(autofill,minmax(100px,1fr))',gridTemplateColumns:'repeat(auto-fill, minmax(300px,1fr) )',rowGap:100,width:'100%',marginTop:50}}>
                 {
                     data &&
                     [...data.Article_Courses, ...data.Video_Courses].sort((a,b) => {return a.order - b.order}).map((e) => {
