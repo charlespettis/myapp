@@ -27,7 +27,7 @@ const Accordion = props => {
                     props.headerComponent
                 }
                 {
-                    props.renderData.map( e => {
+                    props.renderData.length > 0 && props.renderData.map( e => {
                         return props.renderItem(e);
                     })
                 }

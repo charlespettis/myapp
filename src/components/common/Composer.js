@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { useGetSubscribedGroupsCategoriesQuery } from '../../app/services/auth';
 import SubmitButton from '../buttons/SubmitButton';
@@ -8,13 +9,31 @@ import Icon from './Icon';
 const Composer = props => {
     const [composerShown, toggleComposer] = React.useState(true);
     const {data, isLoading} = useGetSubscribedGroupsCategoriesQuery();
-    console.log(data);
     const [value, setValue] = React.useState({
         title:'',
         category:null,
         groupId:null,
         thumbnail:''
     })
+
+    const handleSubmit = () => {
+        if(value.title.length < 3) {
+            toast('Please enter a valid title.', {type: 'error'});
+            return;
+        };
+
+        if(!props.noPlacement && (!value.category || !value.groupId)) {
+            toast('Please select a group and category.', {type: 'error'});
+            return;
+        }
+
+        if(!value.thumbnail){
+            toast('Please configure your thumnail.', {type: 'error'});
+            return;
+        }
+
+        props.onSubmit(value)
+    }
 
     return(
         <ComposerContainer>
@@ -64,9 +83,10 @@ const Composer = props => {
         }
 
             <ComposerContentContainer>
-                <Icon onClick={()=>toggleComposer(!composerShown)} name={composerShown ? 'arrow-left' : 'arrow-right'} size={32} style={{marginTop:20}}/>
+                <Icon onClick={()=>toggleComposer(!composerShown)} name={composerShown ? 'arrow-left' : 'arrow-right'} size={32}/>
+
                 {props.component}
-                <SubmitButton onClick={()=>props.onSubmit(value)}>Publish</SubmitButton>
+                <SubmitButton isLoading={props.loading} onClick={handleSubmit}>Publish</SubmitButton>
             </ComposerContentContainer>
 
 

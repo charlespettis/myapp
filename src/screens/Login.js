@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../app/services/auth';
 import { setCredentials } from '../app/reducers/authSlice';
 import {useDispatch} from 'react-redux';
@@ -20,15 +20,20 @@ const Login = () => {
     const dispatch = useDispatch();
 
     const handleLogin = async () => {
+        if(!creds.login || !creds.password){
+            toast('Please enter a username and password.', {type: 'error'});
+        }
+
         try{
             const result = await login(creds)
             if(result.data.success){
                 dispatch(setCredentials(Date.now()))
                 navigate('/');
+            } else {
+                toast(result.data.errorMessage || 'Something went wrong! Please try again later.', {type: 'error'})
             }
         } catch(err){
-            toast('Something went wrong! Please try again later.', {type: 'error'})
-            console.log(err);
+            toast(new Error(err).message, {type: 'error'})
         }
     }
 
@@ -46,7 +51,8 @@ const Login = () => {
                     <FormInput onChange={e => setCreds({...creds, password: e.currentTarget.value})} type='password'/>
             </FormInputGroup>
 
-            <SubmitButton style={{width:'100%',marginTop:0,}} onClick={handleLogin}>Continue</SubmitButton>
+            <SubmitButton isLoading={isLoading} style={{width:'100%',marginTop:0,}} onClick={handleLogin}>Continue</SubmitButton>
+            <p style={{color:'white',fontSize:12,alignSelf:'flex-start',cursor:'pointer',marginBottom:0}}>Need an account? <Link to='/register' style={{fontWeight:'bold'}}>Register</Link></p>
 
             </FormContainer>
         </Banner>

@@ -15,6 +15,8 @@ import Home from './routes/Home';
 import OrderSuccess from './screens/OrderSuccess';
 import { useAuthorizeQuery } from './app/services/auth';
 import Logo from './components/common/Logo';
+import Terms from './screens/Terms';
+import Privacy from './screens/Privacy';
 
 function App() {
   const user = useSelector(state => state.auth.user);
@@ -36,6 +38,8 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
           <Route path="/order/success" element={<OrderSuccess />}/>
+          <Route path="/terms" element={<Terms/>} />
+          <Route path="/privacy" element={<Privacy/>}/>
         </Routes>
       }
     </BrowserRouter>

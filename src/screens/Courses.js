@@ -5,6 +5,7 @@ import Carousel from '../components/Carousel';
 import Banner from '../components/common/Banner';
 import VideoPreview from '../components/common/VideoPreview';
 import Catalog from '../components/Catalog';
+import Empty from '../components/common/Empty';
 
 const Courses = () => {
     const {data, isLoading} = useGetCategoriesByTypeQuery({type:'course'});
@@ -30,6 +31,8 @@ const Courses = () => {
 
     return(
             <Catalog
+            isLoading={isLoading}
+            renderEmptyComponent={<Empty/>}
             headerComponent = {
                 <Banner src={require('../assets/images/courses-header.jpg')}>
                     <Banner.BottomLeftHeader>Courses</Banner.BottomLeftHeader>

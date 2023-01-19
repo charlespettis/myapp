@@ -3,15 +3,37 @@ import ScreenRecorder from '../ScreenRecorder';
 import DropZone from '../DropZone';
 import styled from 'styled-components';
 import ButtonGroup from '../buttons/ButtonGroup';
+import Alert from '../Alert';
 
 const VideoComposer = props => {
     const [type,setType] = React.useState('record');
-
+    const alert = React.useContext(Alert)
     const toggleUpload = () => {
         if(props.url){
-            alert('you are about to delete your video lol')
+            alert({
+                title: 'Warning', 
+                message: 'You\'re about to lose progress on your video by switching to this mode. ',
+                buttons: [
+                    {
+                        label: 'Cancel',
+                        type: 'cancel',
+                        onClick: () => {}
+                    },
+                    {
+                        label: 'Continue',
+                        type: 'confirm',
+                        onClick: () => {
+                            props.onChange(null);
+                            props.onChangeDuration(null);
+                            setType('upload');
+                        }
+                    },
+    
+                ]
+            })
+        } else {
+            setType('upload');
         }
-        setType('upload')
     }
 
     return(
@@ -43,6 +65,7 @@ const VideoComposerContainer = styled.div`
     display:flex;
     flex-direction: column;
     width: 100%;
+    margin-bottom: 3em;
 `
 
 export default VideoComposer;

@@ -1,10 +1,11 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
-    refetchOnMountOrArgChange: true,
+    refetchOnMountOrArgChange: 5,
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://3.143.119.18:8080/api/',
-        credentials:'include'
+        baseUrl: 'http://localhost:8080/api/',
+        credentials:'include',
+        mode: 'cors'
     }),
     endpoints: (builder) => ({
         register: builder.mutation({

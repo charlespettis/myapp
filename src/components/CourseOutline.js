@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Icon from '../components/common/Icon';
 import VideoPreview from '../components/common/VideoPreview';
 import Modal from '../components/common/Modal';
+import { toast } from 'react-toastify';
 
 const CourseOutline = props => {
 
@@ -13,7 +14,11 @@ const CourseOutline = props => {
     const [steps, setSteps] = React.useState(stepsResp?.length ? stepsResp : []);
     
     const addCell = () => {
-        setVisible(!visible)
+        if(steps.length <= 20){
+            setVisible(true)
+        } else {
+            toast('You\'ve reached the maximimun number of items for a course', {type:'error'})
+        }
     }
 
     const generateOutline = () => {
@@ -38,7 +43,7 @@ const CourseOutline = props => {
 
     return(
         <>
-            <div style={{display:'grid',gridTemplateRows:'repeat(autofill,minmax(100px,1fr))',gridTemplateColumns:'repeat(auto-fill, minmax(300px,1fr) )',rowGap:100,width:'100%',marginTop:20}}>
+            <div style={{display:'grid',gridTemplateRows:'repeat(autofill,minmax(100px,1fr))',minHeight:500,maxHeight:'95vh',overflowY:'scroll',gridTemplateColumns:'repeat(auto-fill, minmax(300px,1fr) )',rowGap:100,width:'100%',marginTop:20}}>
                 {
                     generateOutline()
                 }

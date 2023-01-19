@@ -5,6 +5,7 @@ import VideoPreview from '../components/common/VideoPreview';
 import { useGetAllGroupsQuery, useGetSubscribedUserGroupsQuery, useJoinGroupMutation, useLazySearchGroupsQuery } from '../app/services/auth';
 import Modal from '../components/common/Modal';
 import {toast} from 'react-toastify';
+import Empty from '../components/common/Empty';
 
 const Groups = () => {
     const data = useGetAllGroupsQuery().data;
@@ -27,9 +28,13 @@ const Groups = () => {
     }
 
     const handleJoin = async id => {
-        const result = await join(id);
-        if(result.data.success){
-            await subscribedGroups.refetch();
+        try{
+            const result = await join(id);
+            if(result.data.success){
+                await subscribedGroups.refetch();
+            }
+        } catch(err){
+            toast(new Error(err).message, {type: 'error'})
         }
         setModalVisible(false);
     }
@@ -47,8 +52,8 @@ const Groups = () => {
         <div style={{overflowY:'scroll'}}>
         <Banner style={{width:'100%'}} src='https://t4.ftcdn.net/jpg/04/12/28/57/360_F_412285721_90ZrZh1OmVtBRlZNUanHxebY242e6qo6.jpg'>
             <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
-                <p style={{color:'white',marginBottom:10,fontWeight:'600',fontSize:26}}>Find your people on SkillCenter</p>
-                <p style={{color:'white',marginTop:0,marginBottom:10,fontSize:22}}>Find new communities for your interest on SureLearn.</p>
+                <p style={{color:'white',marginBottom:10,fontWeight:'600',fontSize:26,textShadow:'0px 0px 15px black'}}>Find your people on SkillCenter</p>
+                <p style={{color:'white',marginTop:0,marginBottom:10,fontSize:22,textShadow:'0px 0px 15px black'}}>Find new communities for your interest on SureLearn.</p>
                 
                 {/* <div style={{display:'flex',flexDirection:'row',alignItems:'center',marginTop:10}}>
                     <input onKeyDown={e => {if(e.code === 'Enter') handleSearch()}} onChange={e => setSearch(e.currentTarget.value)} type='text' style={{minWidth:400,minHeight:20}}/>
@@ -57,9 +62,8 @@ const Groups = () => {
             </div>
         </Banner>
         <div style={{paddingTop:25}}>
-        {
         <Carousel title="Latest Featured Groups" renderData={Array.isArray(data) ? data : []} renderItem={item => <VideoPreview title={item.title} onClick={() => handleClick(item)} thumbnail={item.thumbnail}/>} />
-        }
+        {new Array(data).length && <Empty />}
         {modalVisible &&
         <Modal
         visible={modalVisible}

@@ -5,6 +5,7 @@ import Carousel from '../components/Carousel';
 import Banner from '../components/common/Banner';
 import VideoPreview from '../components/common/VideoPreview';
 import Catalog from '../components/Catalog';
+import Empty from '../components/common/Empty';
 
 const Articles = () => {
     const {data, isLoading} = useGetCategoriesByTypeQuery({type:'article'});
@@ -30,11 +31,13 @@ const Articles = () => {
 
     return(
             <Catalog
+            renderEmptyComponent={<Empty/>}
             headerComponent = {
                 <Banner src={require('../assets/images/articles-header.jpg')}>
                     <Banner.BottomLeftHeader>Articles</Banner.BottomLeftHeader>
                 </Banner>
             }
+            isLoading={isLoading}
             onEndReached={page => refetch({offset: page * 3, type: 'article'})}
             renderData={data}
             renderItem={renderItem}

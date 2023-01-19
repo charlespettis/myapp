@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Carousel from './Carousel';
+import FullScreenLoader from './common/FullScreenLoader';
 import VideoPreview from './common/VideoPreview';
 
 const Catalog = props => {
@@ -44,6 +45,31 @@ const Catalog = props => {
     const data = cachedCategories.length ? [...getCategoryArray(props.renderData), ...cachedCategories] : getCategoryArray(props.renderData)
 
     const hasRecents = new Object(props.renderData).hasOwnProperty('recents') && props.renderData.recents.length
+
+    if(props.isLoading) {
+        return(         
+            <>
+                {
+                    props.headerComponent
+                }
+
+                <FullScreenLoader/>
+            </>
+        );
+    
+    }
+
+    if(props.renderData && !props.renderData.length && props.renderEmptyComponent) {
+        return(         
+            <>
+                {
+                    props.headerComponent
+                }
+
+                {props.renderEmptyComponent}
+            </>
+        );
+    }
 
     return(
         <div onScroll={handleScroll} ref={scrollRef} style={{display:'flex',flexDirection:'column',overflowY:'scroll',paddingBottom:50,gap:30}}>
