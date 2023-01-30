@@ -54,7 +54,7 @@ const Create = () => {
                 <Accordion
                 title="My Videos"
                 headerComponent={renderHeaderComponent( '/create/video')}
-                renderData={data?.videos}
+                renderData={ new Object(data).hasOwnProperty('videos') ? data.videos : []}
                 renderItem={ item => 
                     <UserItemPreview 
                     link={`/watch/${item.id}`} 
@@ -69,7 +69,7 @@ const Create = () => {
                 <Accordion
                 title="My Articles"
                 headerComponent={renderHeaderComponent('/create/article')}
-                renderData={data?.articles}
+                renderData={ new Object(data).hasOwnProperty('articles') ? data.articles : []}
                 renderItem={ item => 
                     <UserItemPreview 
                     link={`/view/article/${item.id}`} 
@@ -86,7 +86,7 @@ const Create = () => {
                 <Accordion
                 title="My Courses"
                 headerComponent={renderHeaderComponent('/create/course') }
-                renderData={data?.courses}
+                renderData={ new Object(data).hasOwnProperty('courses') ? data.courses : []}
                 renderItem={ item => 
                     <UserItemPreview 
                     link={`/view/course/${item.id}`} 
@@ -120,8 +120,7 @@ const Create = () => {
                 <Accordion
                 title="My Groups"
                 headerComponent={renderHeaderComponent('/create/group') }
-                renderData={data?.groups}
-
+                renderData={ new Object(data).hasOwnProperty('groups') ? data.groups : []}
                 renderItem={ item => 
                     <UserItemPreview 
                     edit

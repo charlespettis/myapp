@@ -10,7 +10,9 @@ const UserItemPreview = props => {
     const statusColors = {
         pending: 'darkorange',
         rejected: 'red',
-        approved: 'green'
+        approved: 'green',
+        processing: 'darkorange',
+        failed: 'red',
     }
 
     const thumbnail = parseThumbnail(props.thumbnail)

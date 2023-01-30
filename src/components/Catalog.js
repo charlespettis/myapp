@@ -59,7 +59,7 @@ const Catalog = props => {
     
     }
 
-    if(props.renderData && !props.renderData.length && props.renderEmptyComponent) {
+    if(!data.length && props.renderEmptyComponent) {
         return(         
             <>
                 {

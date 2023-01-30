@@ -32,6 +32,7 @@ const Button = styled.button`
     border:none;
     color:white;
     font-family: 'Verdana';
+    border-radius: 5px;
 `
 
 export default SubmitButton;

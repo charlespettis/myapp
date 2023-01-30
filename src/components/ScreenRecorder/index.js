@@ -2,6 +2,7 @@ import React from 'react';
 import {BsPause, BsPlay, BsRecord, BsStop} from 'react-icons/bs';
 import {FiDelete} from 'react-icons/fi';
 import styled from 'styled-components';
+import InformationBlock from '../InformationBlock';
 import PauseOverlay from './PauseOverlay';
 import UnsupportedPlatform from './UnsupportedPlatform';
 
@@ -30,12 +31,19 @@ const ScreenRecorder = props => {
 
         let chunks = [];
 
-        const mime = MediaRecorder.isTypeSupported("video/webm; codecs=vp9") ? "video/webm; codecs=vp9" : "video/webm";
+        let mime;
+
+        if(MediaRecorder.isTypeSupported('video/webm')){
+            mime = 'video/webm';
+        } else if(MediaRecorder.isTypeSupported('video/mp4')){
+            mime = 'video/mp4';
+        }
+    
         
         let combine = new MediaStream([...stream.getTracks(), ...audio.getTracks()]);
 
 
-        let mediaRecorder = new MediaRecorder(combine, {mimeType:mime});
+        let mediaRecorder = new MediaRecorder(combine, {mimeType: mime});
         setRecorder(mediaRecorder);
 
         finalRef.current.srcObject = mediaRecorder.stream;
@@ -55,7 +63,7 @@ const ScreenRecorder = props => {
         
         mediaRecorder.onstop = async () => {
 
-            const blob = new Blob(chunks, {type: "video/webm"});
+            const blob = new Blob(chunks, {type: mime});
             const url = URL.createObjectURL(blob);
             const buffer = Buffer.from(await blob.arrayBuffer())
             
@@ -65,9 +73,12 @@ const ScreenRecorder = props => {
             chunks = [];
 
             const duration = (Date.now() - timeStamp) / 1000
-            props.onChangeDuration(duration)
 
-            props.onChange(buffer);
+            props.onChange({
+                duration: duration,
+                url: buffer,
+                contentType: mime
+            })
         }
 
         mediaRecorder.start(200);
@@ -105,7 +116,7 @@ const ScreenRecorder = props => {
     return(
         <>
         {
-            MediaRecorder.isTypeSupported("video/webm; codecs=vp9") ? 
+            MediaRecorder.isTypeSupported("video/webm") || MediaRecorder.isTypeSupported("video/mp4") ? 
             <>
             <FinalVideoPreview shown={recordingPath} controls  ref={finalRef}/>
                 
@@ -140,6 +151,10 @@ const ScreenRecorder = props => {
                         <FiDelete color='red' size={22} style={{marginRight:5}}/> Delete Recording 
                     </ScreenRecorderButton>
                 </ScreenRecorderButtonGroup>
+
+                <InformationBlock type='warning'>
+                    We suggest doing a short test recording to make sure your audio and video settings are set up correctly. We also suggest trying the Google Chrome browser first before contacting support with issues about this screen. 
+                </InformationBlock>
 
             </ScreenRecorderContainer>
             </>
@@ -178,7 +193,7 @@ const ScreenRecorderPreviewStreamContainer = styled.div`
     display: ${props => props.shown ? 'flex' : 'none'};
     background-color:black;
     align-self:center;
-    width:90%;
+    width:100%;
 `
 
 
@@ -187,7 +202,9 @@ const ScreenRecorderButtonGroup = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    width: 80%;
+    width: 100%;
+    gap: 10px;
+    margin-bottom:20px;
 `
 
 const ScreenRecorderButton = styled.button`
@@ -198,7 +215,7 @@ const ScreenRecorderButton = styled.button`
     box-shadow:0px 0px 5px rgba(0,0,0,.25);
     padding:7px 30px;
     font-size:14px;
-    max-width:300px;
+    flex:1;
     align-self:center;
     color:black;
     margin-top:30px;

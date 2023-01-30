@@ -7,14 +7,18 @@ import VideoComposer from '../components/Composer/VideoComposer';
 
 const CreateVideo = () => {
 
-    const [create, {isLoading}] = useCreateVideoMutation();
-    const [url, setUrl] = React.useState(null);
+    const [create] = useCreateVideoMutation();
     const navigate = useNavigate();
     const state = useLocation();
     const steps = state.state?.steps;
-    const [duration, setDuration] = React.useState(0);
+
     const [loading, setLoading] = React.useState(false);
     const mounted = React.useRef(false);
+    const [videoDetails, setVideoDetails] = React.useState({
+        url: null,
+        duration: 0,
+        contentType: ''
+    });
 
     React.useEffect(() => {
         mounted.current = true;
@@ -27,21 +31,21 @@ const CreateVideo = () => {
 
 
     const handleCreateVideo = async data => {
-        if(!url){
+        if(!videoDetails.url || !videoDetails.duration || !videoDetails.contentType){
             toast('Please finish recording or uploading your video', {type: 'error'});
             return;
         }
         setLoading(true);
         try{
-            const result = await create({
-                duration: duration,
-                ...data
-            })
+            const result = await create({...data, duration: videoDetails.duration, contentType: videoDetails.contentType});
             
             if(result.data.url){
                 const postVideo = fetch(result.data.url, {
                     method: 'PUT',
-                    body: url,
+                    headers: {
+                        'Content-Type': videoDetails.contentType
+                    },
+                    body: videoDetails.url,
                     redirect: 'follow'
                 })
 
@@ -76,6 +80,10 @@ const CreateVideo = () => {
         } 
     }
 
+    const handleChange = data => {
+        setVideoDetails(data);
+    }
+
     return(
         <>
         <Composer
@@ -83,9 +91,7 @@ const CreateVideo = () => {
         noPlacement={steps}
         onSubmit={handleCreateVideo}
         component={<VideoComposer
-            url={url}
-            onChangeDuration={e => {setDuration(e)}}
-            onChange={e =>{setUrl(e)}}
+            onChange={handleChange}
         />}
         />
 

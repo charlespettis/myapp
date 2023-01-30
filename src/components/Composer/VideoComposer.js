@@ -9,10 +9,9 @@ const VideoComposer = props => {
     const [type,setType] = React.useState('record');
     const alert = React.useContext(Alert)
     const toggleUpload = () => {
-        if(props.url){
             alert({
                 title: 'Warning', 
-                message: 'You\'re about to lose progress on your video by switching to this mode. ',
+                message: 'You will lose any unsaved progress on your video by switching to this mode. ',
                 buttons: [
                     {
                         label: 'Cancel',
@@ -24,17 +23,13 @@ const VideoComposer = props => {
                         type: 'confirm',
                         onClick: () => {
                             props.onChange(null);
-                            props.onChangeDuration(null);
                             setType('upload');
                         }
                     },
     
                 ]
             })
-        } else {
-            setType('upload');
-        }
-    }
+    } 
 
     return(
         <VideoComposerContainer>
@@ -45,7 +40,7 @@ const VideoComposer = props => {
             
             {
             type === 'record' ?
-            <ScreenRecorder onChangeDuration={props.onChangeDuration} onChange={props.onChange} />
+            <ScreenRecorder onChange={props.onChange} />
             :
             <DropZone  onChange={props.onChange} />
             }
