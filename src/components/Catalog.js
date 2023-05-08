@@ -71,6 +71,7 @@ const Catalog = props => {
         );
     }
 
+
     return(
         <div onScroll={handleScroll} ref={scrollRef} style={{display:'flex',flexDirection:'column',overflowY:'scroll',paddingBottom:50,gap:30}}>
             {
@@ -83,8 +84,10 @@ const Catalog = props => {
                 title='Recently Viewed'
                 renderItem={itemraw => {
                     const item = itemraw?.course || itemraw?.article || itemraw?.video
+                    const link = props.type === 'video' ? `/watch/${item.id}` : `/view/${props.type}/${item.id}`
+                
                     return(
-                    <Link to={`/view/article/${item.id}`}>
+                    <Link to={link}>
                         <VideoPreview icon={item.icon} thumbnail={item.thumbnail} title={item.title} />
                     </Link>
                     )

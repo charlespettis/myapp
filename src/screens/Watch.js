@@ -48,7 +48,7 @@ const Watch = () => {
         return () => window.removeEventListener('keydown', handlePause)
     },[])
 
-    if(isError) return <ContentLock />
+    if(isError) return <div style={{height:'100vh',width:'100vw'}}> <ContentLock /></div>
 
     return(
         <main

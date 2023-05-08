@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useCustomerPortalQuery } from '../app/services/auth';
+import InformationBlock from '../components/InformationBlock';
 
 const Billing = () => {
     const {data, isLoading, isError} = useCustomerPortalQuery();
@@ -14,14 +15,19 @@ const Billing = () => {
         return(
             <BillingContainer>
                 <h1 style={{alignSelf:'center',textAlign:'center',width:'100%'}}>JOIN THE CLUB...</h1>
-                <p style={{alignSelf:'center',textAlign:'center',width:'100%',marginBottom:50}}>...and get full access to our entire catalog on-demand.  You will also be supporting our mission to provide accessible programming education to everyone.</p>
-                <stripe-pricing-table 
-                pricing-table-id="prctbl_1MOE0KGesUFmaHPxm0ejz6sn"
-                publishable-key="pk_test_N8tqqh6FWRrzNOdEmTF72sIZ006orx6Ay6"
-                client-reference-id={data.id}
-                
-                >
-                </stripe-pricing-table>
+                <p style={{alignSelf:'center',textAlign:'center',width:'100%',marginBottom:20}}>...and get full access to our entire catalog on-demand.  You will also be supporting our mission to provide accessible programming education for everyone.</p>
+                <InformationBlock type='info'>
+                    First two weeks <strong>free</strong>, cancel anytime
+                </InformationBlock>
+                <div style={{marginTop:20}}>
+                    <stripe-pricing-table 
+                    pricing-table-id="prctbl_1MZqQ0GesUFmaHPxGECwot9w"
+                    publishable-key="pk_live_uUCjZLvs5zuiylUvDs8ORmjO00uSt6vqE0"
+                    client-reference-id={data.id}
+                    
+                    >
+                    </stripe-pricing-table>
+                </div>
             </BillingContainer>
         )
     }
@@ -38,6 +44,8 @@ const StripeLoading = () => {
 
 const BillingContainer = styled.div`
     margin-top: 10vh;
+    max-width: 50vw;
+    align-self:center;
 `
 
 export default Billing;

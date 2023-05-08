@@ -13,7 +13,13 @@ const CreateCourse = () => {
 
     const handleSubmit = async data => {
 
-        if(steps.length < 2){
+        const steps = 
+            new Object(state.state).hasOwnProperty('steps') ?
+            state.state.steps : [];
+
+        console.log(steps);
+
+        if(steps.length <= 1){
             toast('Please add atleast 2 items to your course.', {type: 'error'});
             return;
         }
@@ -24,14 +30,16 @@ const CreateCourse = () => {
             articles:[]
         }
         
-        steps.map((e,i) => {
-            if(e.type === 'article'){
-                body.articles.push({order: i + 1, id:e.id});
-            }
-            if(e.type === 'video'){
-                body.videos.push({order:i + 1, id:e.id});
-            }
-        })
+        if(steps.length){
+            steps.map((e,i) => {
+                if(e.type === 'article'){
+                    body.articles.push({order: i + 1, id:e.id});
+                }
+                if(e.type === 'video'){
+                    body.videos.push({order:i + 1, id:e.id});
+                }
+            })
+        }
 
         try{
             await create(body);

@@ -26,11 +26,11 @@ function App() {
   return (
     <BrowserRouter>
       {
-        data?.success ? 
-        <Routes>
-          <Route path="*" element={<Home />} />
-          <Route path="/watch/:id" element={<Watch />}/>
-        </Routes>
+        data?.success ?
+          <Routes>
+            <Route path="*" element={<Home />} />
+            <Route path="/watch/:id" element={<Watch />}/>
+          </Routes>
         :
         <Routes>
           <Route path="*" exact={true} element={<Login />} />

@@ -30,7 +30,7 @@ const ViewCourse = () => {
                         if(new Object(e).hasOwnProperty('video')) {
                             item = {
                                 ...e.video,
-                                link: `/view/article/${e.article.id}`,
+                                link: `/watch/${e.video.id}`,
                                 type: 'video'
                             }
 

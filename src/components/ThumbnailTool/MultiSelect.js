@@ -29,13 +29,13 @@ const MultiSelect = props => {
 }
 
 const MultiSelectContainer = styled.div`
-    max-height: 250px;
     overflow-y: scroll;
     display: flex;
+    width: 100%;
     flex-direction: row;
     flex-wrap: wrap;
-    row-gap: 7px;
-    column-gap: 7px;
+    row-gap: 5px;
+    column-gap: 5px;
     align-items: center;
     
 `
@@ -45,11 +45,13 @@ const MultiSelectItemContainer = styled.div`
     border-style: ${props => props.selected ? 'solid' : 'none'};
     box-sizing: border-box;
     border-width: 3px;
-    border-color: ${props => props.selected ? 'orange' : 'none'};
+    border-color: ${props => props.selected ? 'darkorange' : 'none'};
     border-radius: 5px;
     background: ${props => props.value};
-    height:50px;
+    height: 50px;
     width: 50px;
+    flex-grow: 1;
+    box-sizing: border-box;
 
 `
 

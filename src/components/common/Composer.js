@@ -40,7 +40,8 @@ const Composer = props => {
         {composerShown &&
             <ComposerSideBarContainer>
                 
-                <ComposerSideBarTextInput 
+                <ComposerSideBarTextInput
+                maxLength={70}
                 onChange={e => setValue({...value, title: e.currentTarget.value})} 
                 placeholder='Enter a title' 
                 type='text'
@@ -75,6 +76,7 @@ const Composer = props => {
                 </span>
                     
                 <ThumbnailTool
+                title={value.title}
                 onChange={e =>{
                     setValue({...value, ...e})}}
                 />

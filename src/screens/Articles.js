@@ -31,6 +31,7 @@ const Articles = () => {
 
     return(
             <Catalog
+            type='article'
             renderEmptyComponent={<Empty/>}
             headerComponent = {
                 <Banner src={require('../assets/images/articles-header.jpg')}>

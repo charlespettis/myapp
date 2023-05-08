@@ -22,6 +22,7 @@ import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
 import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin';
 
 import './editorStyles.css'
+import OnKeyDownPlugin from "./plugins/OnKeyDownPlugin";
 
 function Placeholder() {
   return <div className="editor-placeholder">Begin writing your article...</div>;
@@ -66,10 +67,10 @@ export default function Editor(props) {
   
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <div style={{marginTop:10,paddingTop:0,width:'100%',alignSelf:'center',justifySelf:'center',height:'88%',overflowY:'scroll'}} className="editor-container">
+      <div style={{marginTop:10,paddingTop:0,width:'100%',alignSelf:'center',justifySelf:'center',height:'88%',overflowY:'scroll', ...props.style}} className="editor-container">
         {!props.text && <ToolbarPlugin />}
-        <div className="editor-inner">
-          <OnChangePlugin  onChange={onChange} />
+        <div className="editor-inner" style={props.inputStyle}>
+          <OnChangePlugin onChange={onChange} />
           <RichTextPlugin
             
             contentEditable={<ContentEditable className="editor-input" />}
@@ -83,6 +84,11 @@ export default function Editor(props) {
           <AutoLinkPlugin />
           <ListMaxIndentLevelPlugin maxDepth={7} />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+          {props.onEnter &&
+          <OnKeyDownPlugin
+          onEnter={props.onEnter}
+          />
+          }
         </div>
       </div>
     </LexicalComposer>

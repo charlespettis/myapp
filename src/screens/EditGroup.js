@@ -58,7 +58,7 @@ const EditGroup = () => {
         <h4>Items pending approval</h4>
         <Accordion
         title="Pending Videos"
-        renderData={data?.videos}
+        renderData={data?.videos || []}
         renderItem={item => {
             return(<ItemPreview 
                 onApprove={() => manageItem('video',item.id,'approve')}
@@ -74,7 +74,7 @@ const EditGroup = () => {
 
         <Accordion
         title="Pending Articles"
-        renderData={data?.articles}
+        renderData={data?.articles || []}
         renderItem={item => {
             return(<ItemPreview 
                 onApprove={() => manageItem('article',item.id,'approve')}
@@ -91,7 +91,7 @@ const EditGroup = () => {
         
         <Accordion
         title="Pending Courses"
-        renderData={data?.courses}
+        renderData={data?.courses || []}
         renderItem={item => {
             return(<ItemPreview 
                 onApprove={() => manageItem('course',item.id,'approve')}

@@ -1,10 +1,11 @@
 import React from 'react';
-import { AiFillWarning } from 'react-icons/ai';
+import { AiFillInfoCircle, AiFillWarning } from 'react-icons/ai';
 import styled from 'styled-components';
 
 const InformationBlock = props => {
     const ICON_TYPES = {
-        'warning': <AiFillWarning size={42} color='darkorange'/>
+        'warning': <AiFillWarning size={42} color='darkorange'/>,
+        'info': <AiFillInfoCircle size={42} color='darkblue'/>
     }
 
     return(
@@ -23,7 +24,7 @@ const InformationBlockContainer = styled.div`
     display:flex;
     flex-direction: row;
     align-items: center;
-    background-color: ${props => props.type === 'warning' && 'rgba(255,140,0,.25)'};
+    background-color: ${props => props.type === 'warning' ? 'rgba(255,140,0,.25)' : props.type == 'info' ? 'rgba(0,0,255,.25)' : 'transparent'};
     border-radius: 5px;
     padding:5px;
 `

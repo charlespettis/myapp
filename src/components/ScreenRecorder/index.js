@@ -19,20 +19,21 @@ const ScreenRecorder = props => {
     const startRecording = async () => {
         let stream = await navigator.mediaDevices.getDisplayMedia({
             video: {
-                width: { ideal: 4096 },
-                height: { ideal: 2160 } 
-            },            
+                width: { ideal: 1920, max: 1920 },
+                height: { ideal: 1080, max: 1080 }
+              }
+            ,
             audio: false
         })
-
+    
         let audio = await navigator.mediaDevices.getUserMedia({audio: true, video: false});
-
+    
         setRecording(true);
-
+    
         let chunks = [];
-
+    
         let mime;
-
+    
         if(MediaRecorder.isTypeSupported('video/webm')){
             mime = 'video/webm';
         } else if(MediaRecorder.isTypeSupported('video/mp4')){
@@ -41,28 +42,27 @@ const ScreenRecorder = props => {
     
         
         let combine = new MediaStream([...stream.getTracks(), ...audio.getTracks()]);
-
-
+    
         let mediaRecorder = new MediaRecorder(combine, {mimeType: mime});
         setRecorder(mediaRecorder);
-
+    
         finalRef.current.srcObject = mediaRecorder.stream;
-
+    
         mediaRecorder.ondataavailable = (e) => {
             console.log(e);
             if (e.data.size > 0) {
                 chunks.push(e.data);
             }  
         }
-
+    
         let timeStamp;
-
+    
         mediaRecorder.onstart = () => {
             timeStamp = Date.now();
         }
         
         mediaRecorder.onstop = async () => {
-
+    
             const blob = new Blob(chunks, {type: mime});
             const url = URL.createObjectURL(blob);
             const buffer = Buffer.from(await blob.arrayBuffer())
@@ -71,25 +71,24 @@ const ScreenRecorder = props => {
             finalRef.current.srcObject = undefined;
             finalRef.current.src = url;
             chunks = [];
-
+    
             const duration = (Date.now() - timeStamp) / 1000
-
+    
             props.onChange({
                 duration: duration,
                 url: buffer,
                 contentType: mime
             })
         }
-
+    
         mediaRecorder.start(200);
-
-
+    
         let preview = previewRef.current;
         preview.srcObject = stream;
         preview.play();
         
     }
-
+    
     const stopRecording = () => {
         let final = finalRef.current;
         final.srcObject.getTracks().forEach(track => track.stop());
@@ -121,10 +120,13 @@ const ScreenRecorder = props => {
             <FinalVideoPreview shown={recordingPath} controls  ref={finalRef}/>
                 
             <ScreenRecorderContainer>
-                
+
                 <ScreenRecorderPreviewStreamContainer shown={!recordingPath} >
-                    <ScreenRecorderPreviewStream recording={recording} ref={previewRef}/>
-                    { paused && <PauseOverlay /> }
+                        <ScreenRecorderPreviewStream recording={recording} ref={previewRef}/>
+
+
+                        { paused && <PauseOverlay /> }
+
                 </ScreenRecorderPreviewStreamContainer>
 
                 <ScreenRecorderButtonGroup>
@@ -165,6 +167,7 @@ const ScreenRecorder = props => {
     )
 
 }
+
 
 const ScreenRecorderContainer = styled.div`
     display: flex;

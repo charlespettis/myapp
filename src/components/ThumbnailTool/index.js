@@ -17,7 +17,7 @@ const ThumbnailTool = props => {
     const handleChange = item => {
         console.log(item);
         const backgroundShorthand = Object.keys(backgroundGradients).find(key => backgroundGradients[key] === item.background) || data.background;
-        const patternShorthand = Object.keys(patterns).find(key => patterns[key] === item.pattern) || data.pattern;
+        const patternShorthand = item.pattern ? Object.keys(patterns).find(key => patterns[key] === item.pattern) || data.pattern : '';
         let background = `${patternShorthand},${backgroundShorthand}`;
         setData(prevState => {
             return({
@@ -50,7 +50,7 @@ const ThumbnailTool = props => {
             
             <div style={{display:'flex',flexDirection:'column',alignItems:'flex-start'}}>
                 
-                <VideoPreview icon={data.icon} thumbnail={background}  />
+                <VideoPreview title={props.title} icon={data.icon} thumbnail={background}  />
 
                     <p style={{marginTop:20}}>Choose Background</p>
                     

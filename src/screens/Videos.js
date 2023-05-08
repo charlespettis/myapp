@@ -31,6 +31,7 @@ const Videos = () => {
 
     return(
             <Catalog
+            type='video'
             renderEmptyComponent={<Empty/>}
             headerComponent = {
                 <Banner src={require('../assets/images/videos-header.jpg')}>

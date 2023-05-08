@@ -11,7 +11,7 @@ const VideoComposer = props => {
     const toggleUpload = () => {
             alert({
                 title: 'Warning', 
-                message: 'You will lose any unsaved progress on your video by switching to this mode. ',
+                message: 'You will lose any unsaved progress on your recording by switching to this mode.',
                 buttons: [
                     {
                         label: 'Cancel',

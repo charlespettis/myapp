@@ -28,13 +28,14 @@ const CreateArticle = () => {
             const result = await create(body);
 
 
-            if(result.data && steps){
+            if(steps){
                 const newObj = Object.assign({type: 'article'}, result.data);
                 console.log(newObj);
                 steps.push(newObj);
                 navigate('/create/course', { state:{ steps:steps}})
+            } else {
+                navigate(-1);
             }
-            navigate(-1);
             toast('Successfully created article')
         } catch(err){
             toast(new Error(err).message, {type: 'error'});

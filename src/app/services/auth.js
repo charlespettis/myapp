@@ -3,7 +3,8 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 export const api = createApi({
     refetchOnMountOrArgChange: 5,
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:8080/api/',
+        baseUrl: 'https://www.skillcenterapp.com/api/',
+        // baseUrl: 'http://localhost:5000/api/',
         credentials:'include',
         mode: 'cors'
     }),

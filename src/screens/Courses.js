@@ -31,6 +31,7 @@ const Courses = () => {
 
     return(
             <Catalog
+            type='course'
             isLoading={isLoading}
             renderEmptyComponent={<Empty/>}
             headerComponent = {
