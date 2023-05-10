@@ -65,7 +65,7 @@ const Watch = () => {
 
             {
             (timestamp && videoRef.current) &&
-             <VideoControls onRequestFullscreen={() => document.fullscreenElement? document.exitFullscreen() : mainRef.current.requestFullscreen()} setLoading={setLoading} duration={data?.duration} progress={progress} video={videoRef}/>   
+             <VideoControls title={data?.title || ''} onRequestFullscreen={() => document.fullscreenElement? document.exitFullscreen() : mainRef.current.requestFullscreen()} setLoading={setLoading} duration={data?.duration} progress={progress} video={videoRef}/>   
             } 
 
             

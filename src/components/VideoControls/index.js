@@ -69,13 +69,13 @@ const VideoControls = props => {
 
                     <div style={{display:'flex',flex:1,justifyContent:'center',alignItems:'center'}}>
 
-                    <p style={{color:'white',textAlign:'center',alignSelf:'center'}}>Title of Video</p>
+                    <p style={{color:'white',textAlign:'center',alignSelf:'center'}}>{props.title}</p>
                     </div>
 
 
                     <div style={{display:'flex',justifyContent:'flex-end',flexDirection:'row',alignItems:'center',marginTop:10,flex:1}}>
                     <p style={{color:'whitesmoke',fontSize:16}}>{`${Math.floor(video.current.currentTime / 60)}:${Math.floor(video.current.currentTime - Math.floor(video.current.currentTime / 60) * 60)}`} / {`${Math.floor(props.duration / 60)}:${Math.floor(props.duration - Math.floor(props.duration / 60) * 60)}`}</p>
-                    <Icon name='flag' style={{marginLeft:20}} size={32} color='white' />
+                    <Icon onClick={()=>props.onRequestFullscreen()} name='expand' style={{marginLeft:20, cursor: 'pointer'}} size={32} color='white' />
                     </div>
 
                 </div>

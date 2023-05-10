@@ -31,6 +31,7 @@ const CreateVideo = () => {
 
 
     const handleCreateVideo = async data => {
+        console.log(videoDetails);
         if(!videoDetails.url || !videoDetails.duration || !videoDetails.contentType){
             toast('Please finish recording or uploading your video', {type: 'error'});
             return;

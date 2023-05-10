@@ -12,7 +12,23 @@ const DropZone = props => {
         const formData = new FormData();
         setFileDetails(file.name)
         formData.append('file', file);
-        props.onChange(file);
+
+        var video = document.createElement('video');
+        video.preload = 'metadata';
+      
+        video.onloadedmetadata = function() {
+          window.URL.revokeObjectURL(video.src);
+          var duration = video.duration;
+          props.onChange({
+            url: file,
+            duration: duration,
+            contentType: file.type
+        });
+        }
+      
+        video.src = URL.createObjectURL(file);;
+      
+        
       }, [])
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, accept: {'video/*' : ['.webm', '.mp4', '.mov', '.avi']}})
     
