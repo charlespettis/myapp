@@ -13,6 +13,7 @@ const UserItemPreview = props => {
         approved: 'green',
         processing: 'darkorange',
         failed: 'red',
+        course: 'blue'
     }
 
     const thumbnail = parseThumbnail(props.thumbnail)
@@ -37,8 +38,8 @@ const UserItemPreview = props => {
                     {props.status.toUpperCase()}
                 </UserItemPreviewStatusText>
 
-                { props.edit &&
-                <Link to={`/edit/group/${props.id}`}>
+                { props.editable &&
+                <Link to={props.editLink}>
                     <Icon name='gear' size={22} style={{marginRight:10}}/>    
                 </Link>
                 }

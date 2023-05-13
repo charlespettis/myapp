@@ -31,14 +31,22 @@ const CreateVideo = () => {
 
 
     const handleCreateVideo = async data => {
-        console.log(videoDetails);
         if(!videoDetails.url || !videoDetails.duration || !videoDetails.contentType){
             toast('Please finish recording or uploading your video', {type: 'error'});
             return;
         }
         setLoading(true);
         try{
-            const result = await create({...data, duration: videoDetails.duration, contentType: videoDetails.contentType});
+            const payload = {
+                ...data,
+                duration: videoDetails.duration,
+                contentType: videoDetails.contentType
+            }
+            if(steps){
+                payload['status'] = 'course';
+            }
+
+            const result = await create(payload);
             
             if(result.data.url){
                 const postVideo = fetch(result.data.url, {

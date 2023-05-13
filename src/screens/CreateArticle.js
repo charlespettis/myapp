@@ -3,9 +3,10 @@ import Composer from '../components/common/Composer';
 import Editor from '../components/Editor';
 import { useCreateArticleMutation } from '../app/services/auth';
 import {toast} from 'react-toastify';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const CreateArticle = () => {
+    const {id} = useParams();
     const [create, {isLoading}] = useCreateArticleMutation();
     const [text,setText] = React.useState('');
     const state = useLocation();
@@ -40,11 +41,19 @@ const CreateArticle = () => {
         } catch(err){
             toast(new Error(err).message, {type: 'error'});
         }
+    }
 
+    const handleSaveDraft = async () => {
+        if(!text.length){
+            toast('Please write your article before saving a draft.');
+            return;
+        }
     }
 
     return(
         <Composer
+        onSaveDraft={handleSaveDraft}
+        allowDrafts={true}
         onSubmit={submit}
         loading={isLoading}
         noPlacement={steps}

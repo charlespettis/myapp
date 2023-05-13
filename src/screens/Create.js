@@ -72,6 +72,8 @@ const Create = () => {
                 renderData={ new Object(data).hasOwnProperty('articles') ? data.articles : []}
                 renderItem={ item => 
                     <UserItemPreview 
+                    editable
+                    editLink={`/create/article/${item.id}`}
                     link={`/view/article/${item.id}`} 
                     title={item.title} 
                     thumbnail={item.thumbnail} 
@@ -123,8 +125,8 @@ const Create = () => {
                 renderData={ new Object(data).hasOwnProperty('groups') ? data.groups : []}
                 renderItem={ item => 
                     <UserItemPreview 
-                    edit
-                    link={`/view/roadmap/${item.id}`} 
+                    editable
+                    editLink={`/edit/group/${item.id}`}
                     title={item.title} 
                     thumbnail={item.thumbnail} 
                     createdAt={item.createdAt} 

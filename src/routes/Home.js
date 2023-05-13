@@ -83,9 +83,13 @@ const Home = () => {
         element={<CreateRoadmap/>}
         />
 
-
         <SideNav.Screen
         path='/create/article'
+        element={<CreateArticle/>}
+        />
+
+        <SideNav.Screen
+        path='/create/article/:id'
         element={<CreateArticle/>}
         />
 
