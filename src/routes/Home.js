@@ -18,6 +18,8 @@ import Billing from '../screens/Billing';
 import Logo from '../components/common/Logo';
 import Roadmaps from '../screens/Roadmaps';
 import Category from '../screens/Category';
+import Forums from '../screens/Forums';
+
 
 const Home = () => {
     return(
@@ -49,6 +51,13 @@ const Home = () => {
         label='Courses'
         path='/courses'
         element={<Courses/>}
+        />
+        <SideNav.Screen
+        icon='message-outline'
+        label='Forums'
+        path='/forums'
+        
+        element={<Forums/>}
         />
 
 {/* {        <SideNav.Screen
@@ -131,6 +140,17 @@ const Home = () => {
         path={`/category/:id/:type`}
         element={<Category/>}
         />
+
+        <SideNav.Screen
+        path={`/forums/:forumId`}
+        element={<Forums/>}
+        />
+        <SideNav.Screen
+        path={`/forums/:forumId/:postId`}
+        element={<Forums/>}
+        />
+
+
 
     </SideNav>
   )

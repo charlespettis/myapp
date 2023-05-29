@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useManagePendingGroupItemMutation, useCreateCategoryMutation, useDeleteCategoryMutation, useGetPendingGroupItemsQuery } from '../app/services/auth';
+import { useManagePendingGroupItemMutation, useCreateCategoryMutation, useDeleteCategoryMutation, useGetPendingGroupItemsQuery, useCreateForumMutation } from '../app/services/auth';
 import Accordion from '../components/Accordion';
 import Icon from '../components/common/Icon';
 import {toast} from 'react-toastify';
@@ -11,10 +11,14 @@ const EditGroup = () => {
     const {data, isLoading, refetch} = useGetPendingGroupItemsQuery(id);
 
     const [categoryTitle, setCategoryTitle] = React.useState('');
+    const [forumTitle, setForumTitle] = React.useState('');
+
     const [create] = useCreateCategoryMutation();
     const [deleteCategory] = useDeleteCategoryMutation();
 
     const [manage] = useManagePendingGroupItemMutation();
+
+    const [createForum] = useCreateForumMutation();
 
     const manageItem = async (type, id, action) => {
         const result = await manage({type: type, id: id, action: action})
@@ -52,6 +56,26 @@ const EditGroup = () => {
         }
     }
 
+    const handleCreateForum = async e => {
+        if(e.code === 'Enter'){
+
+        try{
+            const result = await createForum({
+                title: forumTitle,
+                groupId: id
+            })
+            if(result.data.success){
+                toast('Successfully created forum!');
+                refetch();
+            }
+
+        } catch(err){
+            console.log(err);
+        }
+        setForumTitle('')
+        }
+    }
+    
     return(
         <div style={{display:'flex',flex:1,flexDirection:'column',alignItems:'center'}}>
         <div style={{width:'60%',display:'flex',flexDirection:'column',justifyContent:'center',alignSelf:'center',marginTop:0}}>
@@ -130,6 +154,22 @@ const EditGroup = () => {
                     <div style={{display:'flex',flexDirection:'row',alignItems:'center',marginBottom:10}}>
                         <input disabled value={e.title} type='text' style={{marginRight:5,width:300,}}/>
                         <Icon onClick={() => handleDeleteCategory(e.id)} name='close' />
+                    </div>
+
+                )
+            })
+        }
+
+
+
+        <h4 style={{alignSelf:'flex-start'}}>Forums</h4>
+        <input value={forumTitle} onChange={e => setForumTitle(e.currentTarget.value)} onKeyDown={handleCreateForum} placeholder='Enter title'  type='text' style={{maxWidth:300,marginBottom:10}} />
+        {
+            Array.isArray(data?.forums) && data.forums.map(e => {
+                return(
+                    <div style={{display:'flex',flexDirection:'row',alignItems:'center',marginBottom:10}}>
+                        <input disabled value={e.title} type='text' style={{marginRight:5,width:300,}}/>
+                        {/* <Icon onClick={() => handleDeleteForum(e.id)} name='close' /> */}
                     </div>
 
                 )

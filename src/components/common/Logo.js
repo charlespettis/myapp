@@ -7,7 +7,7 @@ const Logo = props => {
     }
 
     return(
-      <p style={{alignSelf:'center',textAlign:'center',fontSize:props.size || 22,pointerEvents:'none',margin:0}}>
+      <p style={{alignSelf:'center',textAlign:'center',fontSize:props.size || 22,pointerEvents:'none',margin:0,...props.style}}>
         <span style={{color:'orange'}}>
           Skill
         </span>

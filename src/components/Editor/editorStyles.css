@@ -48,7 +48,6 @@
     justify-content: center;
     height:100%;
 
-    overflow: hidden;
   }
   
   .editor-inner {
@@ -62,7 +61,7 @@
   }
   
   .editor-input {
-    min-height: 50vh;
+    min-height: 20em;
     resize: none;
     font-size: 15px;
     caret-color: rgb(5, 5, 5);
@@ -72,7 +71,7 @@
     padding: 15px 10px;
     caret-color: #444;
     max-height: 95%;
-    overflow-y: scroll;
+    overflow-y: hidden;
     margin-bottom: 50;
   }
   

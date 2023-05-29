@@ -57,7 +57,7 @@ const CreateArticle = () => {
         onSubmit={submit}
         loading={isLoading}
         noPlacement={steps}
-        component={<Editor
+        component={<Editor contentStyle={{overflowY:'scroll'}}
         onChange={e => setText(e)}
         />}
         />    

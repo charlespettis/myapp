@@ -7,6 +7,7 @@ import {toast} from 'react-toastify';
 import Banner from '../components/common/Banner';
 import { FormContainer, FormHeaderText, FormInput, FormInputGroup } from '../components/Form';
 import SubmitButton from '../components/buttons/SubmitButton';
+import Pill from '../assets/images/pill-bg.png';
 
 const Login = () => {
 
@@ -39,7 +40,7 @@ const Login = () => {
 
 
     return(
-        <Banner src={require('../assets/images/lp-bg.jpg')} style={{minHeight:'100vh'}}>
+        <div style={{backgroundRepeat:'repeat',backgroundImage:`url(${Pill})`,minHeight:'100vh', minWidth:'100vw',backgroundColor:'black',display:'flex',alignItems:'center',justifyContent:'center'}}>
         <FormContainer>
             <FormHeaderText>Welcome Back!</FormHeaderText>
             <FormInputGroup>
@@ -55,7 +56,7 @@ const Login = () => {
             <p style={{color:'white',fontSize:12,alignSelf:'flex-start',cursor:'pointer',marginBottom:0}}>Need an account? <Link to='/register' style={{fontWeight:'bold'}}>Register</Link></p>
 
             </FormContainer>
-        </Banner>
+        </div>
     )
 }
 

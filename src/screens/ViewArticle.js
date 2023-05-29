@@ -21,7 +21,7 @@ const ViewArticle = () => {
             </span>  
 
             {data?.text &&
-                <Editor text={data.text} />
+                <Editor contentStyle={{overflowY:'scroll'}} text={data.text} />
             }
         </>
     )

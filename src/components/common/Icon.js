@@ -1,12 +1,12 @@
 import React from 'react';
-import {IoIosList, IoMdExit, IoMdSearch, IoIosClose, } from 'react-icons/io'
-import {BiVideo, BiBell, BiBook} from 'react-icons/bi'
+import {IoIosList, IoMdExit, IoMdSearch, IoIosClose, IoMdBuild, } from 'react-icons/io'
+import {BiVideo, BiBell, BiBook, BiMessageAltDetail} from 'react-icons/bi'
 import {HiOutlineMap,} from 'react-icons/hi';
 import {MdOutlineForum, MdReplay10, MdForward10, MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdAccessibility, MdOutlineKeyboardArrowLeft, MdVideocam, MdLockClock } from 'react-icons/md';
 import {RiVideoAddLine, RiAngularjsLine} from 'react-icons/ri';
-import {BsPeople, BsFillPlayFill, BsFillPauseFill, BsVolumeMute, BsVolumeOff, BsVolumeDown, BsVolumeUp, BsPlus, BsFlag} from 'react-icons/bs';
-import {AiFillWindows, AiOutlineArrowLeft, AiOutlineFileText, AiFillApple, AiFillHtml5, AiFillAndroid, AiOutlineConsoleSql, AiFillFileText, AiOutlineCreditCard, AiOutlineMessage} from 'react-icons/ai'
-import {FaReact, FaPython, FaJava, FaVuejs, FaDrupal, FaJoomla, FaLaravel, FaSymfony, FaUnity, FaGamepad, FaAws, FaEdit, FaRegEdit, FaTrashAlt, FaTrash, FaRegTrashAlt, FaCheck, FaUsers, FaRegSadCry, FaExpand} from 'react-icons/fa';
+import {BsPeople, BsFillPlayFill, BsFillPauseFill, BsVolumeMute, BsVolumeOff, BsVolumeDown, BsVolumeUp, BsPlus, BsFlag, BsJournalCode} from 'react-icons/bs';
+import {AiFillWindows, AiOutlineArrowLeft, AiOutlineFileText, AiFillApple, AiFillHtml5, AiFillAndroid, AiOutlineConsoleSql, AiFillFileText, AiOutlineCreditCard, AiOutlineMessage, AiOutlineMobile} from 'react-icons/ai'
+import {FaReact, FaPython, FaJava, FaVuejs, FaDrupal, FaJoomla, FaLaravel, FaSymfony, FaUnity, FaGamepad, FaAws, FaEdit, FaRegEdit, FaTrashAlt, FaTrash, FaRegTrashAlt, FaCheck, FaUsers, FaRegSadCry, FaExpand, FaHeart} from 'react-icons/fa';
 import {SiXcode, SiTypescript, SiSvelte, SiNextdotjs, SiTensorflow, SiDjango, SiFlask,SiPhp,SiAdobecreativecloud, SiBlender,SiCsharp,SiBlazor,SiAutodesk,SiUnrealengine, SiSwift, SiWebassembly, SiRust, SiDotnet, SiSolidity, SiRedux,SiLua,SiGo, SiGodotengine, SiC, SiCplusplus, SiDiscord, SiRuby, SiRubyonrails, SiMongodb, SiPostgresql, SiJavascript, SiFirebase, SiCakephp, SiAmazonaws, SiAppstore, SiAmazons3, } from 'react-icons/si';
 import {DiCss3, DiSqllite} from 'react-icons/di';
 import { TbBrandKotlin} from 'react-icons/tb';
@@ -122,6 +122,11 @@ const Icon = props => {
         'sad': <FaRegSadCry {...props}/>,
         'message': <AiOutlineMessage {...props} />,
         'expand': <FaExpand {...props}/>,
+        'message-outline':<BiMessageAltDetail {...props}/>,
+        'journal-code': <BsJournalCode {...props}/>,
+        'heart':<FaHeart {...props}/>,
+        'wrench': <IoMdBuild {...props}/>,
+        'mobile': <AiOutlineMobile {...props}/>
         
     }
 

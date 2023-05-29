@@ -184,6 +184,48 @@ export const api = createApi({
                 url: 'getSubscribedUserGroups',
                 method: 'GET'
             })
+        }),
+        createForum: builder.mutation({
+            query: data => ({
+                url: 'createForum',
+                method:'POST',
+                body: data
+            })
+        }),
+        getForums: builder.query({
+            query: data => ({
+                url: 'getForums',
+                method: 'GET',
+                params: data
+            })
+        }),
+        getForumPosts: builder.query({
+            query: data => ({
+                url: 'getForumPosts',
+                method: 'GET',
+                params: data
+            })
+        }),
+        createForumPost: builder.mutation({
+            query: data => ({
+                url: 'createForumPost',
+                method: 'POST',
+                body: data
+            })
+        }),
+        getForumPost: builder.query({
+            query: data => ({
+                url: 'getForumPost',
+                method: 'GET',
+                params: data
+            })
+        }),
+        createForumPostReply: builder.mutation({
+            query: data => ({
+                url: 'createForumPostReply',
+                method: 'POST',
+                body: data
+            })
         })
     })
 });
@@ -221,6 +263,12 @@ export const {
     useOrderSuccessQuery,
     useCustomerPortalQuery,
     useDeleteUserItemMutation,
-    useGetSubscribedUserGroupsQuery
+    useGetSubscribedUserGroupsQuery,
+    useCreateForumMutation,
+    useGetForumsQuery,
+    useGetForumPostsQuery,
+    useCreateForumPostMutation,
+    useGetForumPostQuery,
+    useCreateForumPostReplyMutation
 
 } = api;

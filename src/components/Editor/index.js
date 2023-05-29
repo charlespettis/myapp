@@ -23,9 +23,11 @@ import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin';
 
 import './editorStyles.css'
 import OnKeyDownPlugin from "./plugins/OnKeyDownPlugin";
+import React, { useEffect } from "react";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
-function Placeholder() {
-  return <div className="editor-placeholder">Begin writing your article...</div>;
+function Placeholder(props) {
+  return <div className="editor-placeholder">{props.placeholder ? props.placeholder : 'Begin writing your article...'}</div>;
 }
 
 
@@ -59,22 +61,21 @@ export default function Editor(props) {
     ],
   };
 
-  if(props.text) {
+  if(props.text){
     editorConfig['editorState'] = props.text
     editorConfig['editable'] = false
-
   }
   
   return (
-    <LexicalComposer initialConfig={editorConfig}>
-      <div style={{marginTop:10,paddingTop:0,width:'100%',alignSelf:'center',justifySelf:'center',height:'88%',overflowY:'scroll', ...props.style}} className="editor-container">
-        {!props.text && <ToolbarPlugin />}
-        <div className="editor-inner" style={props.inputStyle}>
+    <LexicalComposer  initialConfig={editorConfig}>
+      <div style={{marginTop:10,paddingTop:0,width:'100%',alignSelf:'center',justifySelf:'center', ...props.style}} className="editor-container">
+        {!props.text && <ToolbarPlugin minimized={props.minimizedToolbar} />}
+        <div className="editor-inner" style={{overflowY:'scroll',...props.inputStyle}}>
           <OnChangePlugin onChange={onChange} />
           <RichTextPlugin
             
-            contentEditable={<ContentEditable className="editor-input" />}
-            placeholder={<Placeholder />}
+            contentEditable={<ContentEditable style={props.contentStyle} className="editor-input" />}
+            placeholder={<Placeholder placeholder={props.placeholder} />}
           />
           <HistoryPlugin />
           <AutoFocusPlugin />
@@ -89,8 +90,22 @@ export default function Editor(props) {
           onEnter={props.onEnter}
           />
           }
+          <HandleUpdatesPlugin text={props.text} />
+          
         </div>
       </div>
     </LexicalComposer>
   );
+}
+
+const HandleUpdatesPlugin = props => {
+  const [editor] = useLexicalComposerContext();
+  useEffect(()=>{
+    if(props.text){
+      const editorState = editor.parseEditorState(props.text);
+      editor.setEditorState(editorState);  
+    }
+  },[props.text])
+
+  return null;
 }

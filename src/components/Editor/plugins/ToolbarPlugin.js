@@ -411,7 +411,7 @@ function BlockOptionsDropdownList({
   );
 }
 
-export default function ToolbarPlugin() {
+export default function ToolbarPlugin(props) {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef(null);
   const [canUndo, setCanUndo] = useState(false);
@@ -534,6 +534,8 @@ export default function ToolbarPlugin() {
 
   return (
     <div className="toolbar" ref={toolbarRef}>
+      {!props.minimized &&
+      <>
       <button
         disabled={!canUndo}
         onClick={() => {
@@ -555,6 +557,9 @@ export default function ToolbarPlugin() {
         <i className="format redo" />
       </button>
       <Divider />
+      </>
+      }
+      
       {supportedBlockTypes.has(blockType) && (
         <>
           <button
@@ -593,6 +598,8 @@ export default function ToolbarPlugin() {
         </>
       ) : (
         <>
+        { !props.minimized &&
+          <>
           <button
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bold");
@@ -686,6 +693,8 @@ export default function ToolbarPlugin() {
           >
             <i className="format justify-align" />
           </button>{" "}
+        </>
+        }
         </>
       )}
     </div>

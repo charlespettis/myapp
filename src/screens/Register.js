@@ -5,6 +5,9 @@ import {toast} from 'react-toastify';
 import Banner from '../components/common/Banner';
 import SubmitButton from '../components/buttons/SubmitButton';
 import { FormContainer, FormHeaderText, FormInputGroup, FormInput } from '../components/Form';
+import Pill from '../assets/images/pill-bg.png';
+
+
 const Register = () => {
     const [creds, setCreds] = React.useState({
         username: '',
@@ -48,7 +51,7 @@ const Register = () => {
 
 
     return(
-        <Banner src={require('../assets/images/lp-bg.jpg')} style={{minHeight:'100vh'}}>
+        <div style={{backgroundRepeat:'repeat',backgroundImage:`url(${Pill})`,minHeight:'100vh', minWidth:'100vw',backgroundColor:'black',display:'flex',alignItems:'center',justifyContent:'center'}}>
         <FormContainer>
             <FormHeaderText>Create an Account</FormHeaderText>
             <FormInputGroup>
@@ -74,7 +77,7 @@ const Register = () => {
 
             <p style={{color:'white',marginBottom:0,fontSize:12,alignSelf:'flex-start',cursor:'pointer'}}>Already have an account? <Link to='/login' style={{fontWeight:'bold'}}>Login</Link></p>
         </FormContainer>
-        </Banner>
+        </div>
     )
 }
 

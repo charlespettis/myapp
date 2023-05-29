@@ -1,13 +1,34 @@
 import React from 'react';
+import styled from 'styled-components';
 
 const OutlineButton = props => {
-    const [hover, setHover] = React.useState(false);
 
     return(
-        <button onClick={props.onClick} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} style={{cursor:'pointer',borderTopLeftRadius:3,borderTopRightRadius:3,borderWidth:2,padding:'7px 20px', backgroundColor:hover ? 'blue' : 'transparent',borderRadius:0,borderColor:'blue',color:hover ? 'white' : 'blue',fontSize:14, ...props.style}}>
+        <OutlineButtonContainer style={{...props.style}} onClick={props.onClick} >
             {props.children}
-        </button>
+        </OutlineButtonContainer>
     )
 }
+
+const OutlineButtonContainer = styled.button`
+    cursor:pointer;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
+    border-width:2px;
+    padding:7px 20px;
+    background-color: transparent;
+    border-radius:3px;
+    border-color:blue;
+    color:blue;
+    font-size:14px;
+    transition: .1s color linear, .1s background-color linear;
+
+    &:hover{
+        color:white;
+        background-color:blue;
+        transition: .1s color linear, .1s background-color linear;
+    }
+
+`
 
 export default OutlineButton;

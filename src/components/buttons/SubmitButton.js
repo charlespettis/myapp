@@ -33,6 +33,12 @@ const Button = styled.button`
     color:white;
     font-family: 'Verdana';
     border-radius: 5px;
+    transition: .25s opacity;
+    opacity: 1;
+    &:active{
+        transition: .25s opacity;
+        opacity: .75;
+    }
 `
 
 export default SubmitButton;
